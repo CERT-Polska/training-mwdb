@@ -1,6 +1,6 @@
 # MWDB Training
 
-**Agenda**:
+## Agenda
 
 - **mwdb.cert.pl**
   - What the heck is MWDB?
@@ -34,7 +34,7 @@ Open a terminal and check if these tools are installed:
 
 Recommended environment is Ubuntu 18.04/20.04. Software used in training was not tested on other platforms (e.g. Mac OS, Windows), so prepare a fresh Ubuntu VM for the best workshop experience, especially if your host environment is unusual.
 
-## Part 1: mwdb.cert.pl tour
+## Part 1a: mwdb.cert.pl tour
 
 ### Cheat-sheet for exercises
 
@@ -286,3 +286,179 @@ In MWDB sharing model, if you upload an private sample you got immediate access 
 If you want, you can always change your mind and share the sample with somebody else. But you can't reverse the action, so if something was shared by mistake, contact the administrators.
 
 7. Come back to the original sample and share it with `public` using `Share with group` input field.
+
+## Part 1b: Scripting and automation with mwdblib
+
+### Setup
+
+Create an virtualenv and activate
+
+```
+$ python3 -m venv venv
+$ . venv/bin/activate
+```
+
+Install mwdblib with CLI extras + ipython shell
+
+```
+(venv) $ pip install mwdblib[cli] ipython
+```
+
+### Exercises
+
+**Exercise #6**: Get recent files
+
+The main interface is MWDB object that provides various methods to interact with MWDB. Let’s start with log in to mwdb.cert.pl service.
+
+```python
+In [1]: from mwdblib import MWDB
+
+In [2]: mwdb = MWDB()
+
+In [3]: mwdb.login()
+Username: demologin
+Password:
+```
+
+After successful login, let’s begin with `recent_files` to get recently uploaded file from API.
+
+```python
+In [4]: mwdb.recent_files()
+Out[4]: <generator object MWDB._recent at ...>
+```
+
+`recent_files` function returns generator which does the same job as scrolling down the Samples view to view the older entries. Let’s use next function to get the most recent file:
+
+```python
+In [5]: files = mwdb.recent_files()
+
+In [6]: file = next(files)
+
+In [7]: file
+Out[7]: <mwdblib.file.MWDBFile at ...>
+```
+
+... and we got the file! 
+
+To get the next 10 files, we can use [itertools.islice](https://docs.python.org/3/library/itertools.html#itertools.islice) method:
+
+```python
+In [8]: import itertools
+
+In [9]: recent_10 = list(itertools.islice(files, 10))
+
+In [10]: recent_10
+Out[10]:
+[<mwdblib.file.MWDBFile at ...>,
+ <mwdblib.file.MWDBFile at ...>,
+ <mwdblib.file.MWDBFile at ...>,
+ <mwdblib.file.MWDBFile at ...>,
+ <mwdblib.file.MWDBFile at ...>,
+ <mwdblib.file.MWDBFile at ...>,
+ <mwdblib.file.MWDBFile at ...>,
+ <mwdblib.file.MWDBFile at ...>,
+ <mwdblib.file.MWDBFile at ...>,
+ <mwdblib.file.MWDBFile at ...>]
+```
+
+But what we can do with these file objects?
+
+**Exercise #7**: MWDBObject properties
+
+Let's start with getting a file by hash. Use `mwdb.query_file` method to get an object.
+
+```python
+In [11]: file = mwdb.query_file("780e8fb254e0b8c299f834f61dc80809")
+
+In [12]: file
+Out[12]: <mwdblib.file.MWDBFile at ...>
+```
+
+Using retrieved `MWDBFile` object we can get some details about the file e.g. name, tags, child objects.
+
+```python
+In [13]: file.name
+Out[13]: '400000_1973838fc27536e6'
+
+In [14]: file.tags
+Out[14]: ['dump:win32:exe', 'avemaria']
+
+In [15]: file.children
+Out[15]: [<mwdblib.file.MWDBConfig at ...>]
+```
+
+We can also download its contents
+
+```python
+In [16]: file.download()[:16]
+Out[16]: b'MZ\x90\x00\x03\x00\x00\x00\x04\x00\x00\x00\xff\xff\x00\x00'
+```
+
+As you can see in `[15]`, there is a configuration attached to the file. We can get it by index operator or use config attribute to get the latest configuration object. Let’s see what has been ripped:
+
+```python
+In [17]: file.children[0].config
+Out[17]: {'c2': [{'host': '172.111.210.207'}], 'type': 'avemaria'}
+
+In [18]: file.config
+Out[18]: <mwdblib.file.MWDBConfig at ...>
+
+In [19]: file.config.config
+Out[19]: {'c2': [{'host': '172.111.210.207'}], 'type': 'avemaria'}
+```
+
+Few malware samples can share the same configuration. Let’s explore them:
+
+```python
+In [20]: avemaria = file.config
+
+In [21]: avemaria.parents
+Out[21]: 
+[<mwdblib.file.MWDBFile at ...>,
+ <mwdblib.file.MWDBFile at ...>,
+ <mwdblib.file.MWDBFile at ...>]
+
+In [22]: [parent.name for parent in avemaria.parents]
+In [22]: 
+['400000_1973838fc27536e6',
+ '400000_2bf452f7796153ef',
+ '400000_3539b9d228df73c6']
+```
+
+**Exercise #8**: Using mwdblib CLI
+
+1. First exit ipython using `exit()` or CTRL+D 
+
+2. Then type `mwdb` command in terminal and press ENTER
+
+   mwdblib library installs CLI tool along with the Python binding which can be used in fancy oneliners and Bash scripts
+
+3. Type `mwdb list` to see the list of recent files
+
+4. Copy one of the hashes and paste as a `mwdb get <hash>` argument
+
+5. Download file contents using `mwdb fetch <hash>`
+
+6. Search for other files (e.g. ripped:lokibot) using `mwdb search 'tag:"ripped:lokibot"'`
+
+7. You can also get only file hashes for further processing adding `-o short -n 10` parameters
+
+   (`-o short` means hash-only output and `-n 10` fetches only 10 first files)
+
+8. Make a oneliner that will download first 10 samples tagged as `ripped:lokibot`
+
+Answer:
+
+```
+mwdb search 'tag:"ripped:lokibot"' -o short -n 10 | xargs -n 1 mwdb fetch
+```
+
+or
+
+```
+for f in $(mwdb search 'tag:"ripped:lokibot"' -o short -n 10); do mwdb fetch $f; done
+```
+
+## Part 2: mwdb-core and karton
+
+TBD
