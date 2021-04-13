@@ -254,3 +254,35 @@ Let's take a look at some examples.
 
 **Exercise #5**: Let's upload something!
 
+All of things you see are shared with all MWDB accounts: the 'public' group. If you use a query:
+
+```
+NOT shared:public
+```
+
+You should not have any results, because all samples you see are public. So how to gather some 'private' samples? You need to upload them!
+
+1. Fetch an example sample from Github `ex5malware.zip`. **Don't unpack it**, just download to some temporary location.
+
+2. Click on `Upload` in the navbar (https://mwdb.cert.pl/upload)
+
+   Select the sample you have just downloaded.
+
+3. Take a look at `Share with` options. There are four options:
+
+   - `All my groups` which means that sample will be shared with all your **private** groups, so it will be visible e.g. only within your organization
+   - `Single group` so you can select some specific user or group
+   - `Everybody`, so all newcomers will see your sample
+   - `Only me`, so even your colleagues from the same organization won't see the sample.
+
+4. Upload a sample with a default `All my groups` option.
+
+5. Take a look at the Shares box. Who has the access to your sample?
+
+6. Then use the Relations tab to traverse to the Config. Who has access to the configuration?
+
+In MWDB sharing model, if you upload an private sample you got immediate access to all its descendants. So you always get all the data related with ripped configuration, but not necessarily all of its parents (the other samples).
+
+If you want, you can always change your mind and share the sample with somebody else. But you can't reverse the action, so if something was shared by mistake, contact the administrators.
+
+7. Come back to the original sample and share it with `public` using `Share with group` input field.
