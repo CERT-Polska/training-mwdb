@@ -34,7 +34,7 @@ Open a terminal and check if these tools are installed:
 
 Recommended environment is Ubuntu 18.04/20.04. Software used in training was not tested on other platforms (e.g. Mac OS, Windows), so prepare a fresh Ubuntu VM for the best workshop experience, especially if your host environment is unusual.
 
-## Cheat-sheet
+## Exercise starting points cheat-sheet
 
 **Exercise #2**: Sample hash to find `5762523a60685aafa8a681672403fd19`
 
@@ -48,6 +48,39 @@ Recommended environment is Ubuntu 18.04/20.04. Software used in training was not
 2. Click on the 🛇 character of tag starting with `feed:` to exclude that feed from the results
 3. Then click quick query `Only ripped:*` to include only the original, ripped samples.
 
+   Let's take a look at the resulting query:
+
+   ```
+   tag:"runnable:win32:exe" AND NOT tag:"feed:malwarebazaar" AND tag:"ripped:*"
+   ```	
+
+   Query language is based on Lucene syntax subset and consists of two basic elements:
+
+   - field conditions `tag:"runnable:win32:exe"` that support wildcards `*`, `?`
+   - operators: `OR`, `AND`, `NOT`
+
+   You probably also noticed that tags are colored and the color is not completely random. Here is an explanation:
+
+   <todo>
+ 
+   As you can see, we have various tags identifying the malware as 'formbook' based of various criterion. If we want to find everything that is recognized as formbook regardless of the source of classification, we can just use the wildcards (like in `ripped:*` case):
+
+   ```
+   tag:*formbook*
+   ```
+
+4. Now, add to the query an additional condition:
+
+   ```
+   AND size:[10000 TO 15000]
+   ```
+
+   Lucene query language also supports ranges so we can search for samples of given size or uploaded on given date
+
+   ```
+   upload_time:<=2020-01-01
+   ```
+
 **Exercise #2**: Exploring sample view and hierarchy
 
 1. Copy hash to the query field in Samples view: `5762523a60685aafa8a681672403fd19`
@@ -56,7 +89,7 @@ Recommended environment is Ubuntu 18.04/20.04. Software used in training was not
 
    Here you can see all the details about file. Left side contains three tabs: Details, Relations and Preview. The first one called Details presents basic file information like original file name, size, file type and hash values.
 
-   BLue-colored fields are clickable, so you can search for other samples with the same name or size.
+   Blue-colored fields are clickable, so you can search for other samples with the same name or size.
 
    On the right side of view you can see tags, relations with other objects, attributes and the comments section.
 
@@ -75,14 +108,13 @@ Recommended environment is Ubuntu 18.04/20.04. Software used in training was not
 
 3. Then go to the next child tagged `dump:win32:exe`
 
-    Memory dump contains the unpacked code part as a result of dynamic analysis in sandbox. We're performing multiple dumps based on many heuristics but we upload to the MWDB only the best candidate
-    that contains the most complete malware configuration.
+    Memory dump contains the unpacked code part as a result of dynamic analysis in sandbox. We're performing multiple dumps based on many heuristics but we upload to the MWDB only the best candidate that contains the most complete malware configuration.
 
 4. Check `Static config` tab.
 
-	See the extracted static configuration that parametrize the malware behavior and usually contains useful IoCs.
+	See the extracted static configuration.
 
-	Configuration is the second data type in MWDB. It is used to 
+	Configuration is the second data type in MWDB. Malware configurations are meant to parametrize the malware behavior and usually contains useful IoCs.
 
 	The format of configuration depends on malware family, usually deriving from the structure “proposed” by the malware author.
 
@@ -102,32 +134,85 @@ Recommended environment is Ubuntu 18.04/20.04. Software used in training was not
 
 3. Go back to the Details box. Expand `urls` and click on `www.discorddeno.land/suod/`
 
-	 ```
-	 cfg.urls*.url:"www.discorddeno.land/suod/"
-	 ```
-   
+   ```
+   cfg.urls*.url:"www.discorddeno.land/suod/"
+   ```
+
    The resulting query looks for all `url` keys in `urls` lists that have `www.discorddeno.land/suod/`.
 
-	 Let's look if `/suod/` path was used in other configs as well.
+   Let's check if `/suod/` path was used in other configs as well.
 
 4. Modify query to look for other configs with `/suod/` path replacing the domain with wildcard `*`.
 
-	```
-	cfg.urls*.url:"*/suod/"
-	```
+   ```
+   cfg.urls*.url:"*/suod/"
+   ```
 
-	There is older configuration that contain `/suod` path. What URL was used in older configuration? 
+   There are two configurations. What URL was used in the second configuration? 
 
-5. Check if `/suod/` occurs in other configurations regardless of the configuration structure. For that query we can use full-text search in JSON.
+5. Now let's check if `/suod/` occurs in other configurations regardless of the configuration structure. For that query we can use full-text search in JSON.
 
-	```
-	cfg:"*/suod/*"
-	```
+   ```
+   cfg:"*/suod/*"
+   ```
 
-6. Search for configurations that contain '.land' TLD
+   Are there more configurations like that?
 
-	```
-	cfg:"*.land*"
-	```
+6. If not, let's search for configurations with .land TLD
 
+   ```
+   cfg:"*.land*"
+   ```
+
+7. Then click on `agenttesla` config (`e031b192d40f6d234756f8508f7d384db315983b57d8fc3216d20567056bd88b`)
+
+   Ok, there is no .land TLD. but .landa e-mail address. To ilustrate how full-text search works, go to Preview, press CTRL-F and type ".land" to see what parts of JSON were matched
+
+   How we can improve our query? Let's add `"` character at the end to match the end string.
+
+   ```
+   cfg:"*.land\"*"
+   ```
+
+   Go to the Gandcrab configuration and check in Preview what was matched.
+
+**Exercise #4**: Blobs and parent/child queries
+
+The third object type in MWDB is blob. While config represents structured (JSON) data, blob is an unstructured one. Blobs are just simple text files, usually containing some raw, but human-readable content.
+
+Let's take a look at some examples.
+
+1. Navigate to the https://mwdb.cert.pl/blob/60c9ad80cde64e7cae9eec0c11dd98175860243aa40a3d8439bbf142d2a0e068
+
+   What we see is bunch of decrypted strings from the Agent Tesla that were ripped from the malware sample.
+
+   They're not structured because we don't semantically analyze every string, but it's still nice to have them in repository.
+
+2. Navigate to the https://mwdb.cert.pl/blob/48914f0a6b9f4499da31d2217a7ee2e8c8f35f93ab5c992333f5c1aa947d9009
+
+   Now we have decrypted strings from Remcos. Even if data are unstructured, they can be considered a part of static configuration and used for looking for malware similarities.
+
+   Let's take a look at the parent of this blob: the static configuration object.
+
+   (https://mwdb.cert.pl/config/29c1f3c14a446b2a77ce58cbc59619fbfe7459c56fe1c8408597538384aa56ac)
+
+   Not much, just a C2 host/port and credentials. 
+   
+3. Let's take a look for another configuration with this host by expanding `c2` key and clicking at the `host` address.
+
+   Oh, there is another.
+
+   The resulting query is `cfg.c2*.host:"ongod4life.ddns.net:4344"`
+
+   And the other configuration should be: https://mwdb.cert.pl/config/9afac348443a7aa9ca5d33cffcc984751cebf15f065cb90b48911943fb10e1f6
+
+   They're pretty much the same and only the `raw_cfg` differs. How to easily compare them?
+
+4. Go to the blob (`da2055f0e90355bfaf3cc932f7fdb2f82bfd79c26f95b61b23b9cd77f9b0e32d`). In blob view, find the `Diff with` button on the right side of tabs. Click on that button.
+
+   Now we can choose another blob to compare.
+
+   The most simple way is to copy to clipboard the previous blob id and paste it into query bar.
+
+   `48914f0a6b9f4499da31d2217a7ee2e8c8f35f93ab5c992333f5c1aa947d9009`
 
