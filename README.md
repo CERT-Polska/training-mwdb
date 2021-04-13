@@ -34,13 +34,26 @@ Open a terminal and check if these tools are installed:
 
 Recommended environment is Ubuntu 18.04/20.04. Software used in training was not tested on other platforms (e.g. Mac OS, Windows), so prepare a fresh Ubuntu VM for the best workshop experience, especially if your host environment is unusual.
 
-## Exercise starting points cheat-sheet
+## Part 1: mwdb.cert.pl tour
+
+### Cheat-sheet for exercises
+
+Useful materials:
+
+- [Advanced search based on Lucene queries - mwdb-core User Guide](https://mwdb.readthedocs.io/en/latest/user-guide/7-Lucene-search.html)
+
+Starting points:
 
 **Exercise #2**: Sample hash to find `5762523a60685aafa8a681672403fd19`
 
 **Exercise #3**: Configuration hash is `f2e216695d4ce7233f5feb846bc81b8fffe9507988c7f5caaca680c0861e5e02` (https://mwdb.cert.pl/config/f2e216695d4ce7233f5feb846bc81b8fffe9507988c7f5caaca680c0861e5e02)
 
-## Exercises
+**Exercise #4**:
+
+1. https://mwdb.cert.pl/blob/60c9ad80cde64e7cae9eec0c11dd98175860243aa40a3d8439bbf142d2a0e068
+2. https://mwdb.cert.pl/blob/48914f0a6b9f4499da31d2217a7ee2e8c8f35f93ab5c992333f5c1aa947d9009
+
+### Exercises
 
 **Exercise #1**: Filtering samples by tags
 
@@ -176,7 +189,7 @@ Recommended environment is Ubuntu 18.04/20.04. Software used in training was not
 
    Go to the Gandcrab configuration and check in Preview what was matched.
 
-**Exercise #4**: Blobs and parent/child queries
+**Exercise #4**: Blobs and dynamic configurations
 
 The third object type in MWDB is blob. While config represents structured (JSON) data, blob is an unstructured one. Blobs are just simple text files, usually containing some raw, but human-readable content.
 
@@ -215,4 +228,29 @@ Let's take a look at some examples.
    The most simple way is to copy to clipboard the previous blob id and paste it into query bar.
 
    `48914f0a6b9f4499da31d2217a7ee2e8c8f35f93ab5c992333f5c1aa947d9009`
+
+   Then press ENTER and choose the searched blob. What's the difference between these blobs?
+
+   But blobs are not only the strings and unstructured static things.
+
+5. Go to the `Blobs` list and click on `dyn_cfg` in `Blob type` column or type manually `type:dyn_cfg`.
+   Then filter out `dynamic:mirai` tag, there are lots of them but they're not so interesting.
+
+6. Check out the `hancitor` dynamic configuration.
+
+   https://mwdb.cert.pl/blob/3b032876cc2d77d28625b9dfee0686663e60385cda7f9031afac6cf2b0c6d6e4	
+
+   Dynamic configurations also parametrize the malware behavior, but they're fetched from external source. In that case we have set of commands to run a second stage malware.
+
+   Fetched second stage is linked as a blob child.
+
+   Other possible types of dynamic configuration are injects, mail templates for spam botnets or malware updates.
+
+   Example of more verbose Kronos dynamic configuration:
+
+   https://mwdb.cert.pl/blob/2e4d109edb8b2fa7c1f1d7592a284bbf15e3e51d24d1d9cdda91c9ae582cf05c/config
+
+   Blob children are files dropped from C&C and structured (parsed) fragments of dynamic configuration
+
+**Exercise #5**: Let's upload something!
 
