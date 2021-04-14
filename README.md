@@ -55,6 +55,18 @@ Starting points:
 
 ### Exercises
 
+**Exercise #0**: Getting familiar with the interface
+
+MWDB welcomes us with a list of recently uploaded samples.
+
+**Recent views** allow to see basic information about latest objects in the repository and interactively explore the dataset using Lucene-based queries and clickable fields. If sample was uploaded within last 72 hours, it is additionally marked with yellowish background. Yellow color is a bit more intense if file was uploaded at least 24 hours ago.
+
+If you click on sample hash, you will navigate to the detailed sample view. Here you can see all the details about file. Left side contains four tabs. The first one called Details presents basic file information like original file name, size, file type and hash values. 
+
+On the right side of view you can see tags, relations with other objects, attributes containing some extra information and the comments section. These information are added to MWDB mainly by our analysis backend, where sample is sent on the first upload. If analysis was successful, all interesting analysis artifacts are uploaded back to the MWDB.
+
+During our tour we will go through all of these elements, starting from tags.
+
 **Exercise #1**: Filtering samples by tags
 
 1. Go to the main view and click on any tag starting with `runnable:` to include only runnable samples
