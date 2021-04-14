@@ -84,15 +84,13 @@ During our tour we will go through all of these elements, starting from tags.
    - field conditions `tag:"runnable:win32:exe"` that support wildcards `*`, `?`
    - operators: `OR`, `AND`, `NOT`
 
-   You probably also noticed that tags are colored and the color is not completely random. Here is an explanation:
-
-   <todo>
- 
    As you can see, we have various tags identifying the malware as 'formbook' based of various criterion. If we want to find everything that is recognized as formbook regardless of the source of classification, we can just use the wildcards (like in `ripped:*` case):
 
    ```
    tag:*formbook*
    ```
+
+   You probably also noticed that tags are colored and the color is not completely random. Explanation is on the slides.
 
 4. Now, add to the query an additional condition:
 
@@ -126,10 +124,10 @@ During our tour we will go through all of these elements, starting from tags.
 
    This is the actual executable contained in the malicious archive. Based on tags we may say that:
 
-    - `runnable:win32:exe` it is Windows 32-bit executable
-	- `yara:win_formbook`  One of our Yara rules matched this sample as Formbook
-	- `et:formbook`        ET Pro traffic rules matched this sample as Formbook (more info in comments)
-	- `ripped:formbook`    We have successfully ripped Formbook configuration from this sample
+   - `runnable:win32:exe` it is Windows 32-bit executable
+   - `yara:win_formbook`  One of our Yara rules matched this sample as Formbook
+   - `et:formbook`        ET Pro traffic rules matched this sample as Formbook (more info in comments)
+   - `ripped:formbook`    We have successfully ripped Formbook configuration from this sample
 
 3. Then go to the next child tagged `dump:win32:exe`
 
@@ -137,15 +135,15 @@ During our tour we will go through all of these elements, starting from tags.
 
 4. Check `Static config` tab.
 
-	See the extracted static configuration.
+   See the extracted static configuration.
 
-	Configuration is the second data type in MWDB. Malware configurations are meant to parametrize the malware behavior and usually contains useful IoCs.
+   Configuration is the second data type in MWDB. Malware configurations are meant to parametrize the malware behavior and usually contains useful IoCs.
 
-	The format of configuration depends on malware family, usually deriving from the structure “proposed” by the malware author.
+   The format of configuration depends on malware family, usually deriving from the structure “proposed” by the malware author.
 
 5. Come back to the `Details` and make sure you're on MD5 `8e56eee9cf853d2ec4c695282c01fe0a`
 
-	Go to the `Relations` tab. It shows the parents and children of current object. Notice that two samples have the same unpacked core.
+   Go to the `Relations` tab. It shows the parents and children of current object. Notice that two samples have the same unpacked core.
 
 6. Click on the Config box in the Relations graph to expand it. Scroll down to zoom out the graph.
 
