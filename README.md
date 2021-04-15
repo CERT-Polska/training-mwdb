@@ -512,7 +512,7 @@ $ source ./venv/bin/activate
 $ pip install karton-autoit-ripper
 
 $ # playground-specific: copy local config to cwd
-$ cp config/kartonlocal.ini karton.ini
+$ cp config/karton.local.ini karton.ini
 $ karton-autoit-ripper
 [2021-04-11 17:19:57,867][INFO] Service karton.autoit-ripper started
 ```
