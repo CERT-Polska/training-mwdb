@@ -316,7 +316,7 @@ Install mwdblib with CLI extras + ipython shell
 
 ### Exercises
 
-**Exercise #6**: Get recent files
+**Exercise #6**: Get information about 10 recent files using mwdblib
 
 The main interface is MWDB object that provides various methods to interact with MWDB. Let’s start with log in to mwdb.cert.pl service.
 
@@ -373,7 +373,13 @@ Out[10]:
 
 But what we can do with these file objects?
 
-**Exercise #7**: MWDBObject properties
+**Exercise #7**: Check properties of `780e8fb254e0b8c299f834f61dc80809`
+
+**Objectives**:
+- Check file's name, tags and children
+- Get the first 16 bytes of the file
+- Get the configuration of this file.
+- Check names of the other files that are parents of this configuration
 
 Let's start with getting a file by hash. Use `mwdb.query_file` method to get an object.
 
@@ -436,6 +442,9 @@ In [22]:
 ```
 
 **Exercise #8**: Using mwdblib CLI
+
+**Objectives**:
+- Download 10 files that were tagged as `ripped:lokibot` using mwdblib CLI
 
 1. First exit ipython using `exit()` or CTRL+D 
 
