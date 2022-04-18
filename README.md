@@ -2,30 +2,57 @@
 
 ## Agenda
 
-- **mwdb.cert.pl**
-  - What the heck is MWDB?
-  - Tour de mwdb.cert.pl
-  - Scripting and automation with mwdblib
-- **mwdb-core** and **karton**
-  - Run a self-hosted mwdb-core and karton instances
-  - Experiment with karton-playground
-  - Distributed collaboration with mwdb remotes
-  - Advanced programming techniques with malduck
+- [Part 1 - **mwdb.cert.pl**](#part-1)
+   - What the heck is MWDB?
+   - Tour de mwdb.cert.pl
+   - Exercise #1.0
+   - Filtering
+   - Exercise #1.1
+   - Object hierarchy
+   - Exercise #1.2
+   - Exercise #1.3
+   - Blobs
+   - Exercise #1.4
+   - Uploads & permissions
+   - Exercise #1.5
+- [Part 2 - **mwdb-core**](#part-2)
+   - TODO
+   - Exercise #2.1
+   - TODO
+   - Exercise #2.2
+   - TODO
+   - Exercise #2.3
+   - TODO
+   - Exercise #2.4
+- [Part 3 - **karton**](#part-3)
+   - TODO
+   - Exercise #3.1
+   - TODO
+   - Exercise #3.2
+   - TODO
+   - Exercise #3.3
+- [Part 4 - **malduck**](#part-4)
+   - TODO
+   - Exercise #4.1
+   - TODO
+   - Exercise #4.2
+   - TODO
+   - Exercise #4.3
 
 ## Prerequisites
 
 Open a terminal and check if these tools are installed:
 
-- **Python 3** (recommended 3.6 or newer) 
-  ```
+- **Python 3** (recommended 3.7 or newer) 
+  ```shell
   $ python3 -m pip
   ```
 - **Git**
-  ```
+  ```shell
   $ git
   ```
 - **Docker engine with Docker Compose**
-  ```
+  ```shell
   $ docker-compose
   ```
   https://docs.docker.com/engine/install/ubuntu/
@@ -34,40 +61,37 @@ Open a terminal and check if these tools are installed:
 
 Recommended environment is Ubuntu 18.04/20.04. Software used in training was not tested on other platforms (e.g. Mac OS, Windows), so prepare a fresh Ubuntu VM for the best workshop experience, especially if your host environment is unusual.
 
-## Part 1a: mwdb.cert.pl tour
+## Cheat-sheet for exercises
 
-### Cheat-sheet for exercises
+- [mwdb-core - Advanced search based on Lucene queries](https://mwdb.readthedocs.io/en/latest/user-guide/7-Lucene-search.html)
 
-Useful materials:
+- [mwdblib - guide](https://mwdb.readthedocs.io/en/latest/user-guide/8-REST-and-mwdblib.html)
 
-- [Advanced search based on Lucene queries - mwdb-core User Guide](https://mwdb.readthedocs.io/en/latest/user-guide/7-Lucene-search.html)
+- [mwdblib - API reference](https://mwdblib.readthedocs.io/en/latest/)
 
-Starting points:
+- [karton - documentation](https://karton-core.readthedocs.io/en/latest/)
 
-**Exercise #2**: Sample hash to find `5762523a60685aafa8a681672403fd19`
+- [malduck - API reference](https://malduck.readthedocs.io/en/latest/)
 
-**Exercise #3**: Configuration hash is `f2e216695d4ce7233f5feb846bc81b8fffe9507988c7f5caaca680c0861e5e02` (https://mwdb.cert.pl/config/f2e216695d4ce7233f5feb846bc81b8fffe9507988c7f5caaca680c0861e5e02)
+# Exercises
 
-**Exercise #4**:
+## Part 1
 
-1. https://mwdb.cert.pl/blob/60c9ad80cde64e7cae9eec0c11dd98175860243aa40a3d8439bbf142d2a0e068
-2. https://mwdb.cert.pl/blob/48914f0a6b9f4499da31d2217a7ee2e8c8f35f93ab5c992333f5c1aa947d9009
-
-### Exercises
-
-**Exercise #0**: Getting familiar with the interface
+### **Exercise #1.0**: Getting familiar with the interface
 
 MWDB welcomes us with a list of recently uploaded samples.
 
 **Recent views** allow to see basic information about latest objects in the repository and interactively explore the dataset using Lucene-based queries and clickable fields. If sample was uploaded within last 72 hours, it is additionally marked with yellowish background. Yellow color is a bit more intense if file was uploaded at least 24 hours ago.
 
-If you click on sample hash, you will navigate to the detailed sample view. Here you can see all the details about file. Left side contains four tabs. The first one called Details presents basic file information like original file name, size, file type and hash values. 
+If you click on sample hash, you will navigate to the detailed sample view. Here you can see all the details about file. Left side contains a few tabs. The first one called Details presents basic file information like original file name, size, file type and hash values.
 
-On the right side of view you can see tags, relations with other objects, attributes containing some extra information and the comments section. These information are added to MWDB mainly by our analysis backend, where sample is sent on the first upload. If analysis was successful, all interesting analysis artifacts are uploaded back to the MWDB.
+On the right side of view you can see tags, relations with other objects and the comments section. This information are added to MWDB mainly by our analysis backend, where sample is sent on the first upload. If analysis was successful, all interesting analysis artifacts are uploaded back to the MWDB.
 
 During our tour we will go through all of these elements, starting from tags.
 
-**Exercise #1**: Filtering samples by tags
+### **Exercise #1.1**: Filtering samples by tags
+
+**Goal**: get familiar with the interface, play around with the search query
 
 1. Go to the main view and click on any tag starting with `runnable:` to include only runnable samples
 2. Click on the 🛇 character of tag starting with `feed:` to exclude that feed from the results
@@ -84,7 +108,7 @@ During our tour we will go through all of these elements, starting from tags.
    - field conditions `tag:"runnable:win32:exe"` that support wildcards `*`, `?`
    - operators: `OR`, `AND`, `NOT`
 
-   As you can see, we have various tags identifying the malware as 'formbook' based of various criterion. If we want to find everything that is recognized as formbook regardless of the source of classification, we can just use the wildcards (like in `ripped:*` case):
+   As you can see, we have various tags identifying the malware as 'formbook' based on various criteria. If we want to find everything that is recognized as formbook regardless of the source of classification, we can just use the wildcards (like in `ripped:*` case):
 
    ```
    tag:*formbook*
@@ -92,7 +116,7 @@ During our tour we will go through all of these elements, starting from tags.
 
    You probably also noticed that tags are colored and the color is not completely random. Explanation is on the slides.
 
-4. Now, add to the query an additional condition:
+4. Now, add an additional condition to the query:
 
    ```
    AND size:[10000 TO 15000]
@@ -104,7 +128,9 @@ During our tour we will go through all of these elements, starting from tags.
    upload_time:<=2020-01-01
    ```
 
-**Exercise #2**: Exploring sample view and hierarchy
+## **Exercise #1.2**: Exploring sample view and hierarchy
+
+**Goal**: explore the sample view, understand the object hierarchy
 
 1. Copy hash to the query field in Samples view: `5762523a60685aafa8a681672403fd19`
 
@@ -112,50 +138,54 @@ During our tour we will go through all of these elements, starting from tags.
 
    Here you can see all the details about file. Left side contains three tabs: Details, Relations and Preview. The first one called Details presents basic file information like original file name, size, file type and hash values.
 
-   Blue-colored fields are clickable, so you can search for other samples with the same name or size.
+   Blue-colored fields are clickable, you can use them to quickly search for other samples matching the given criteria.
 
-   On the right side of view you can see tags, relations with other objects, attributes and the comments section.
+   Just beneath the file details tab, attributes are displayed. This section contains all sorts of miscellaneous information about the sample and/or analysis.
 
-   As you can see in tags, sample is `archive:rar` and comes from Malwarebazaar. Link to the MalwareBazaar can be found in the Attributes section.
+   On the right side of view you can see tags, relations with other objects and the comments section.
 
-   Related samples in that case are the files that were unpacked from that archive.
+   As you deduce from tags, sample is a rar archive (`archive:rar`) and comes from Malwarebazaar (`feed:malwarebazaar`). Link to the sample on MalwareBazaar platform can be found in the Attributes section.
 
-2. See the `Related samples` box on the left. Go to the child sample tagged `ripped:formbook`
+   In this case, related samples are the file that were unpacked from that archive.
 
-   This is the actual executable contained in the malicious archive. Based on tags we may say that:
+2. See the `Related samples` box on the right. Go to the child sample tagged `ripped:formbook`
+
+   This is the actual executable contained in the malicious archive. Based on tags we can say that:
 
    - `runnable:win32:exe` it is Windows 32-bit executable
    - `yara:win_formbook`  One of our Yara rules matched this sample as Formbook
    - `et:formbook`        ET Pro traffic rules matched this sample as Formbook (more info in comments)
    - `ripped:formbook`    We have successfully ripped Formbook configuration from this sample
 
-3. Then go to the next child tagged `dump:win32:exe`
+3. Navigate to the next child tagged `dump:win32:exe`
 
-    Memory dump contains the unpacked code part as a result of dynamic analysis in sandbox. We're performing multiple dumps based on many heuristics but we upload to the MWDB only the best candidate that contains the most complete malware configuration.
+   This is the memory dump that contains the unpacked formbook payload. We got it by running the sample on our sandbox and then performing memory dumps when specific *interesting* prerequisites are matched. It's worth nothing that while the analysis produces a bunch of memory dumps, we upload the best one that allowed us to get the complete malware configuration.
 
 4. Check `Static config` tab.
 
    See the extracted static configuration.
 
-   Configuration is the second data type in MWDB. Malware configurations are meant to parametrize the malware behavior and usually contains useful IoCs.
+   Configuration is the second data type in MWDB. Malware configurations are meant to parametrize the malware behavior and they usually contain useful IoCs.
 
-   The format of configuration depends on malware family, usually deriving from the structure “proposed” by the malware author.
+   The format of configuration depends on malware family, usually deriving from the structure "proposed" by the malware author.
 
-5. Come back to the `Details` and make sure you're on MD5 `8e56eee9cf853d2ec4c695282c01fe0a`
+5. Go back to the `Details` tab and make sure you're on MD5 `8e56eee9cf853d2ec4c695282c01fe0a`
 
-   Go to the `Relations` tab. It shows the parents and children of current object. Notice that two samples have the same unpacked core.
+   Go to the `Relations` tab. It presents the parents and children of current object. Notice how two distinct samples have been unpacked into the same malicious core.
 
-6. Click on the Config box in the Relations graph to expand it. Scroll down to zoom out the graph.
+6. Click on the Config box in the Relations graph to expand it. Zoom out the graph to see the whole graph.
 
-**Exercise #3**: Looking for similar configurations
+### **Exercise #1.3**: Looking for similar configurations
 
-1. Click on the config hash (`f2e216695d4ce7233f5feb846bc81b8fffe9507988c7f5caaca680c0861e5e02`) in `Related configs` box.
+**Goal**:
 
-2. Go to the Preview box
+1. Click on the config hash (`f2e216695d4ce7233f5feb846bc81b8fffe9507988c7f5caaca680c0861e5e02`) in `Related configs` tab.
+
+2. Go to the Preview tab
 
    Configurations are just a simple JSON objects. The only special thing is hashing algorithm e.g. lists are hashed non-orderwise, so if domains were ripped in different order, configuration hash will be still the same.
 
-3. Go back to the Details box. Expand `urls` and click on `www.discorddeno.land/suod/`
+3. Go back to the Details tab. Expand `urls` and click on `www.discorddeno.land/suod/`
 
    ```
    cfg.urls*.url:"www.discorddeno.land/suod/"
@@ -163,9 +193,9 @@ During our tour we will go through all of these elements, starting from tags.
 
    The resulting query looks for all `url` keys in `urls` lists that have `www.discorddeno.land/suod/`.
 
-   Let's check if `/suod/` path was used in other configs as well.
+4. Let's check if `/suod/` path was used in other configs as well.
 
-4. Modify query to look for other configs with `/suod/` path replacing the domain with wildcard `*`.
+   Modify query to look for other configs with `/suod/` path replacing the domain with wildcard `*`.
 
    ```
    cfg.urls*.url:"*/suod/"
@@ -187,7 +217,7 @@ During our tour we will go through all of these elements, starting from tags.
    cfg:"*.land*"
    ```
 
-7. Then click on `agenttesla` config (`e031b192d40f6d234756f8508f7d384db315983b57d8fc3216d20567056bd88b`)
+7. Then click on `agenttesla` config (`e031b192d40f6d234756f8508f7d384db315983b57d8fc3216d20567056bd88b`) - you might have to scroll down a bit.
 
    Ok, there is no .land TLD. but .landa e-mail address. To ilustrate how full-text search works, go to Preview, press CTRL-F and type ".land" to see what parts of JSON were matched
 
@@ -199,43 +229,45 @@ During our tour we will go through all of these elements, starting from tags.
 
    Go to the Gandcrab configuration and check in Preview what was matched.
 
-**Exercise #4**: Blobs and dynamic configurations
+### **Exercise #1.4**: Blobs and dynamic configurations
+
+**Goal**: Familiarize yourself with the blob object type
 
 The third object type in MWDB is blob. While config represents structured (JSON) data, blob is an unstructured one. Blobs are just simple text files, usually containing some raw, but human-readable content.
 
 Let's take a look at some examples.
 
-1. Navigate to the https://mwdb.cert.pl/blob/60c9ad80cde64e7cae9eec0c11dd98175860243aa40a3d8439bbf142d2a0e068
+1. Navigate to https://mwdb.cert.pl/blob/60c9ad80cde64e7cae9eec0c11dd98175860243aa40a3d8439bbf142d2a0e068
 
-   What we see is bunch of decrypted strings from the Agent Tesla that were ripped from the malware sample.
+   What we see is bunch of decrypted strings from AgentTesla that were ripped from the malware sample.
 
    They're not structured because we don't semantically analyze every string, but it's still nice to have them in repository.
 
-2. Navigate to the https://mwdb.cert.pl/blob/48914f0a6b9f4499da31d2217a7ee2e8c8f35f93ab5c992333f5c1aa947d9009
+2. Jump to https://mwdb.cert.pl/blob/48914f0a6b9f4499da31d2217a7ee2e8c8f35f93ab5c992333f5c1aa947d9009
 
-   Now we have decrypted strings from Remcos. Even if data are unstructured, they can be considered a part of static configuration and used for looking for malware similarities.
+   We're now looking at decrypted strings from the Remcos family. Even if data is unstructured, it can be considered a part of static configuration and used in searching for malware similarities.
 
    Let's take a look at the parent of this blob: the static configuration object.
 
    (https://mwdb.cert.pl/config/29c1f3c14a446b2a77ce58cbc59619fbfe7459c56fe1c8408597538384aa56ac)
 
-   Not much, just a C2 host/port and credentials. 
-   
+   Not much, just C2 host/port and password. 
+
 3. Let's take a look for another configuration with this host by expanding `c2` key and clicking at the `host` address.
 
-   Oh, there is another.
+   Oh, there is another one.
 
    The resulting query is `cfg.c2*.host:"ongod4life.ddns.net:4344"`
 
-   And the other configuration should be: https://mwdb.cert.pl/config/9afac348443a7aa9ca5d33cffcc984751cebf15f065cb90b48911943fb10e1f6
+   You should be looking at: https://mwdb.cert.pl/config/9afac348443a7aa9ca5d33cffcc984751cebf15f065cb90b48911943fb10e1f6
 
    They're pretty much the same and only the `raw_cfg` differs. How to easily compare them?
 
-4. Go to the blob (`da2055f0e90355bfaf3cc932f7fdb2f82bfd79c26f95b61b23b9cd77f9b0e32d`). In blob view, find the `Diff with` button on the right side of tabs. Click on that button.
+4. Go to the blob (`da2055f0e90355bfaf3cc932f7fdb2f82bfd79c26f95b61b23b9cd77f9b0e32d`). In blob view, find the `Diff with` button on the right side of tabs. Click that button.
 
    Now we can choose another blob to compare.
 
-   The most simple way is to copy to clipboard the previous blob id and paste it into query bar.
+   The simplest way is to copy to clipboard the previous blob id and paste it into query bar.
 
    `48914f0a6b9f4499da31d2217a7ee2e8c8f35f93ab5c992333f5c1aa947d9009`
 
@@ -244,7 +276,7 @@ Let's take a look at some examples.
    But blobs are not only the strings and unstructured static things.
 
 5. Go to the `Blobs` list and click on `dyn_cfg` in `Blob type` column or type manually `type:dyn_cfg`.
-   Then filter out `dynamic:mirai` tag, there are lots of them but they're not so interesting.
+   Then filter out `dynamic:mirai` tag (there are lots of them but they're not that interesting).
 
 6. Check out the `hancitor` dynamic configuration.
 
@@ -262,9 +294,13 @@ Let's take a look at some examples.
 
    Blob children are files dropped from C&C and structured (parsed) fragments of dynamic configuration
 
-**Exercise #5**: Let's upload something!
+### **Exercise #1.5**: Let's upload something!
 
-All of things you see are shared with all MWDB accounts: the 'public' group. If you use a query:
+**Goal**: Learn how object sharing and access inheritance work.
+
+All objects you've seen so far are shared with all MWDB accounts: the 'public' group.
+
+If you use a query:
 
 ```
 NOT shared:public
@@ -280,28 +316,28 @@ You should not have any results, because all samples you see are public. So how 
 
 3. Take a look at `Share with` options. There are four options:
 
-   - `All my groups` which means that sample will be shared with all your **private** groups, so it will be visible e.g. only within your organization
-   - `Single group` so you can select some specific user or group
-   - `Everybody`, so all newcomers will see your sample
-   - `Only me`, so even your colleagues from the same organization won't see the sample.
+   - `All my groups` sample will be shared with all your **private** groups, so it will be visible to the general public. E.g. it will be shared only within your organization
+   - `Single group` in case you belong to multiple user groups, you can select a specific one
+   - `Everybody`, everyone will see the sample
+   - `Only me`, not event your colleagues from the same organization will be able to see the sample
 
 4. Upload a sample with a default `All my groups` option.
 
-5. Take a look at the Shares box. Who has the access to your sample?
+5. Take a look at the Shares box. Who has access to your sample?
 
-6. Then use the Relations tab to traverse to the Config. Who has access to the configuration?
+6. Use the Relations tab to traverse to the Config. Who has access to the configuration?
 
-In MWDB sharing model, if you upload an private sample you got immediate access to all its descendants. So you always get all the data related with ripped configuration, but not necessarily all of its parents (the other samples).
+In MWDB sharing model, if you upload an private sample you get immediate access to all its descendants. So you always get all the data related with ripped configuration, but not necessarily all of its parents.
 
 If you want, you can always change your mind and share the sample with somebody else. But you can't reverse the action, so if something was shared by mistake, contact the administrators.
 
-7. Come back to the original sample and share it with `public` using `Share with group` input field.
+7. Go back to the original sample and share it with `public` using `Share with group` input field.
 
-## Part 1b: Scripting and automation with mwdblib
+## Part 2
 
 ### Setup
 
-Create an virtualenv and activate
+Create a virtualenv and activate it
 
 ```
 $ python3 -m venv venv
@@ -314,11 +350,11 @@ Install mwdblib with CLI extras + ipython shell
 (venv) $ pip install mwdblib[cli] ipython
 ```
 
-### Exercises
+### **Exercise #2.1**: Get information about 10 recent files using mwdblib
 
-**Exercise #6**: Get information about 10 recent files using mwdblib
+**Goal**: learn how the `recent_files` method works
 
-The main interface is MWDB object that provides various methods to interact with MWDB. Let’s start with log in to mwdb.cert.pl service.
+The main interface is MWDB object that provides various methods to interact with MWDB. Let's start with log in to mwdb.cert.pl service.
 
 ```python
 In [1]: from mwdblib import MWDB
@@ -330,14 +366,14 @@ Username: demologin
 Password:
 ```
 
-After successful login, let’s begin with `recent_files` to get recently uploaded file from API.
+After successful login, let's begin with `recent_files` to get recently uploaded file from API.
 
 ```python
 In [4]: mwdb.recent_files()
 Out[4]: <generator object MWDB._recent at ...>
 ```
 
-`recent_files` function returns generator which does the same job as scrolling down the Samples view to view the older entries. Let’s use next function to get the most recent file:
+`recent_files` function returns generator which does the same job as scrolling down the Samples view to view the older entries. Let's use the `next` function to get the most recent file:
 
 ```python
 In [5]: files = mwdb.recent_files()
@@ -373,13 +409,13 @@ Out[10]:
 
 But what we can do with these file objects?
 
-**Exercise #7**: Check properties of `780e8fb254e0b8c299f834f61dc80809`
+### **Exercise #2.2**: Check properties of `780e8fb254e0b8c299f834f61dc80809`
 
 **Objectives**:
 - Check file's name, tags and children
 - Get the first 16 bytes of the file
-- Get the configuration of this file.
-- Check names of the other files that are parents of this configuration
+- Get the linked configuration of this file.
+- Check names of the other files that are parents of that configuration
 
 Let's start with getting a file by hash. Use `mwdb.query_file` method to get an object.
 
@@ -390,7 +426,7 @@ In [12]: file
 Out[12]: <mwdblib.file.MWDBFile at ...>
 ```
 
-Using retrieved `MWDBFile` object we can get some details about the file e.g. name, tags, child objects.
+Using the retrieved `MWDBFile` object we can get some details about the file e.g. name, tags, child objects.
 
 ```python
 In [13]: file.name
@@ -410,7 +446,7 @@ In [16]: file.download()[:16]
 Out[16]: b'MZ\x90\x00\x03\x00\x00\x00\x04\x00\x00\x00\xff\xff\x00\x00'
 ```
 
-As you can see in `[15]`, there is a configuration attached to the file. We can get it by index operator or use config attribute to get the latest configuration object. Let’s see what has been ripped:
+As you can see in `[15]`, there is a configuration attached to the file. We can get it by index operator or use config attribute to get the latest configuration object. Let's see what has been ripped:
 
 ```python
 In [17]: file.children[0].config
@@ -423,28 +459,30 @@ In [19]: file.config.config
 Out[19]: {'c2': [{'host': '172.111.210.207'}], 'type': 'avemaria'}
 ```
 
-Few malware samples can share the same configuration. Let’s explore them:
+Many malware samples can share the same configuration. Let's explore them:
 
 ```python
 In [20]: avemaria = file.config
 
 In [21]: avemaria.parents
 Out[21]: 
-[<mwdblib.file.MWDBFile at ...>,
- <mwdblib.file.MWDBFile at ...>,
- <mwdblib.file.MWDBFile at ...>]
+[<mwdblib.file.MWDBFile at 0x7faed2383f10>,
+ <mwdblib.file.MWDBFile at 0x7faed2383070>,
+ <mwdblib.file.MWDBFile at 0x7faed2335b20>,
+ <mwdblib.file.MWDBFile at 0x7faed2335a00>]
 
 In [22]: [parent.name for parent in avemaria.parents]
 In [22]: 
-['400000_1973838fc27536e6',
+['400000_2236f1a1cacde1dc',
+ '400000_1973838fc27536e6',
  '400000_2bf452f7796153ef',
  '400000_3539b9d228df73c6']
 ```
 
-**Exercise #8**: Using mwdblib CLI
+### **Exercise #2.3**: Using mwdblib CLI
 
 **Objectives**:
-- Download 10 files that were tagged as `ripped:lokibot` using mwdblib CLI
+  - Download 10 files that were tagged as `ripped:lokibot` using mwdblib CLI
 
 1. First exit ipython using `exit()` or CTRL+D 
 
@@ -460,7 +498,7 @@ In [22]:
 
 6. Search for other files (e.g. ripped:lokibot) using `mwdb search 'tag:"ripped:lokibot"'`
 
-7. You can also get only file hashes for further processing adding `-o short -n 10` parameters
+7. You can also get only file hashes for further processing by adding `-o short -n 10`
 
    (`-o short` means hash-only output and `-n 10` fetches only 10 first files)
 
@@ -478,13 +516,15 @@ or
 for f in $(mwdb search 'tag:"ripped:lokibot"' -o short -n 10); do mwdb fetch $f; done
 ```
 
-## Part 2: mwdb-core and karton
+### **Exercise #2.4**: Strings in binary
+
+## Part 3
 
 ### Setup
 
 This part requires [Karton Playground](https://github.com/CERT-Polska/karton-playground) to be set up.
 
-```
+```shell
 git clone https://github.com/CERT-Polska/karton-playground.git
 cd karton-playground
 sudo docker-compose up  # this may take a while
@@ -498,15 +538,15 @@ Also take a look at the [Karton documentation](https://karton-core.readthedocs.i
 - `127.0.0.1:8080` mwdb-core (user: admin, password: admin)
 - `127.0.0.1:8090` minio (user: mwdb, password: mwdbmwdb)
 
-## Exercises
+### **Exercise 3.1**: Adding new service to the Karton pipeline
 
-### Exercise 1: Adding new service to the Karton pipeline
+**Goal**: Learn how to connect new karton systems to your network
 
 1. Integrate an existing karton service into your pipeline: karton-autoit-ripper
 
 https://github.com/CERT-Polska/karton-autoit-ripper
 
-```
+```shell
 $ python3 -m venv venv
 $ source ./venv/bin/activate
 $ pip install karton-autoit-ripper
@@ -519,7 +559,7 @@ $ karton-autoit-ripper
 
 2. Download a sample, and verify its hash
 
-```
+```shell
 $ wget https://github.com/CERT-Polska/training-mwdb/blob/main/autoit-malware.bin
 $ sha256sum autoit-malware.bin
 a4816d4fecd6d2806d5b105c3aab55f4a1eb5deb3b126f317093a4dc4aab88a1 autoit-malware.bin
@@ -527,7 +567,13 @@ a4816d4fecd6d2806d5b105c3aab55f4a1eb5deb3b126f317093a4dc4aab88a1 autoit-malware.
 
 3. Finally, upload it to your local mwdb (http://127.0.0.1:8080, admin:admin)
 
-### Exercise 2: Write your own service
+### **Exercise 3.2**: Setup karton-yaramatcher
+
+**Goal**: Learn how to connect new karton systems to your network
+
+### **Exercise 3.3**: Write your own service
+
+**Goal**: Learn how to create a new karton service from ground up
 
 1. Download a template:
 
@@ -538,3 +584,13 @@ https://github.com/CERT-Polska/training-mwdb/blob/main/karton-template.py
 - Run the strings utility on every incoming sample
 - Save the result in a variable (use subprocess.check_output)
 - Upload the result to mwdb (already handled in the template
+
+## Part 4
+
+### Setup
+
+```shell
+$ python3 -m venv venv
+$ source ./venv/bin/activate
+$ pip install malduck
+```
