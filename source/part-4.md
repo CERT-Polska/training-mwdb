@@ -23,7 +23,7 @@ Commands:
   resources  Extract PE resources from an EXE into a directory
 ```
 
-We'll come back to `extract` in a few minutes, let's try out `resources` and extract PE resources from `samples/unknown/07c69147626042067ef9adfa89584a4f93f8ccd24dec87dd8f291d946d465b24`.
+We'll come back to `extract` in a few minutes, let's try out `resources` and extract PE resources from [`unknown_sample_07c69147626042067ef9adfa89584a4f93f8ccd24dec87dd8f291d946d465b24.bin`](https://github.com/CERT-Polska/training-mwdb/blob/main/unknown_sample_07c69147626042067ef9adfa89584a4f93f8ccd24dec87dd8f291d946d465b24.bin).
 
 What type of malware is this? Which family?
 
@@ -88,7 +88,7 @@ for c in disasm(data=bytes.fromhex(assembly), addr=0):
 
 In this exercise we'll try to create a module that will automatically extract information about the C2 server used in [WARZONE RAT/AVE MARIA](https://malpedia.caad.fkie.fraunhofer.de/details/win.ave_maria)
 
-### 1. Start by downloading archive XXX containing the files for this exercise
+### 1. Start by downloading archive `warzone_exercise.zip` containing the files for this exercise
 
 * `warzone_samples/*` - these are the malware samples we'll be trying to extract information from
 * `modules` - a module extractor stub, you'll need to implement the missing code to make it work
@@ -228,9 +228,9 @@ class WarzoneRAT(Extractor):
 
 ### 1. Task
 
-Now that you've gotten familiar with most of malducks functions, it's time to put them to use.
+Now that you've gotten familiar with most of Malduck's functions, it's time to put them to use.
 
-The directory `samples/random` contains a bunch of ELF 64-bit binaries. Each one accepts user input from stdin and then prints whether the provided password is correct.
+The [`crackmes.zip`](https://github.com/CERT-Polska/training-mwdb/blob/main/crackmes.zip) archive contains a bunch of ELF 64-bit binaries. Each one accepts user input from stdin and then prints whether the provided password is correct.
 
 Your task is to create 3 extractor modules (including the YARA rules) that automatically extract the correct user input.
 
