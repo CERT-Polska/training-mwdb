@@ -8,7 +8,7 @@ $ source ./venv/bin/activate
 $ pip install malduck
 ```
 
-## **Exercise #3.1**: Getting familiar with Malduck
+## **Exercise #4.1**: Getting familiar with Malduck
 
 **Goal**: Learn how Malduck can be used to make your malware analysis life easier
 
@@ -82,7 +82,7 @@ for c in disasm(data=bytes.fromhex(assembly), addr=0):
 ````
 
 
-## **Exercise #3.2**: Extracting Warzone RAT C2 server info
+## **Exercise #4.2**: Extracting Warzone RAT C2 server info
 
 **Goal**: Learn how to create malware extraction modules, work on some real-life samples
 
@@ -222,11 +222,11 @@ class WarzoneRAT(Extractor):
 ````
 
 
-## **Exercise #3.3**: Creating extraction modules from the ground up
+## **Exercise #4.3**: Creating extraction modules from the ground up
 
 **Goal**: Create fully fledged extraction modules
 
-### Task
+### 1. Task
 
 Now that you've gotten familiar with most of malducks functions, it's time to put them to use.
 
@@ -234,13 +234,13 @@ The directory `samples/random` contains a bunch of ELF 64-bit binaries. Each one
 
 Your task is to create 3 extractor modules (including the YARA rules) that automatically extract the correct user input.
 
-### Hints
+### 2. Hints
 
 * All password are in `flag{<hexdigits>}` format
 * You can create the YARA rules just using the output from `strings`
 
 
-### Solution
+### 3. Solution
 
 ````{dropdown} View the first module
 
@@ -380,7 +380,7 @@ class RC4Extractor(Extractor):
 ```
 ````
 
-## **Exercise #3.4**: Bonus: Integrating implemented modules into karton-config-extractor
+## **Exercise #4.4**: Bonus: Integrating implemented modules into karton-config-extractor
 
 **Goal**: See how it all can be used to automatically extract malware configuration in your karton pipeline
 
