@@ -1,83 +1,6 @@
-# MWDB Training
+# Part 1 - MWDB
 
-## Agenda
-
-- [Part 1 - **mwdb.cert.pl**](#part-1)
-   - What the heck is MWDB?
-   - Tour de mwdb.cert.pl
-   - Exercise #1.0
-   - Filtering
-   - Exercise #1.1
-   - Object hierarchy
-   - Exercise #1.2
-   - Exercise #1.3
-   - Blobs
-   - Exercise #1.4
-   - Uploads & permissions
-   - Exercise #1.5
-- [Part 2 - **mwdb-core**](#part-2)
-   - TODO
-   - Exercise #2.1
-   - TODO
-   - Exercise #2.2
-   - TODO
-   - Exercise #2.3
-   - TODO
-   - Exercise #2.4
-- [Part 3 - **karton**](#part-3)
-   - TODO
-   - Exercise #3.1
-   - TODO
-   - Exercise #3.2
-   - TODO
-   - Exercise #3.3
-- [Part 4 - **malduck**](#part-4)
-   - TODO
-   - Exercise #4.1
-   - TODO
-   - Exercise #4.2
-   - TODO
-   - Exercise #4.3
-
-## Prerequisites
-
-Open a terminal and check if these tools are installed:
-
-- **Python 3** (recommended 3.7 or newer) 
-  ```shell
-  $ python3 -m pip
-  ```
-- **Git**
-  ```shell
-  $ git
-  ```
-- **Docker engine with Docker Compose**
-  ```shell
-  $ docker-compose
-  ```
-  https://docs.docker.com/engine/install/ubuntu/
-
-  https://docs.docker.com/compose/install/
-
-Recommended environment is Ubuntu 18.04/20.04. Software used in training was not tested on other platforms (e.g. Mac OS, Windows), so prepare a fresh Ubuntu VM for the best workshop experience, especially if your host environment is unusual.
-
-## Cheat-sheet for exercises
-
-- [mwdb-core - Advanced search based on Lucene queries](https://mwdb.readthedocs.io/en/latest/user-guide/7-Lucene-search.html)
-
-- [mwdblib - guide](https://mwdb.readthedocs.io/en/latest/user-guide/8-REST-and-mwdblib.html)
-
-- [mwdblib - API reference](https://mwdblib.readthedocs.io/en/latest/)
-
-- [karton - documentation](https://karton-core.readthedocs.io/en/latest/)
-
-- [malduck - API reference](https://malduck.readthedocs.io/en/latest/)
-
-# Exercises
-
-## Part 1
-
-### **Exercise #1.0**: Getting familiar with the interface
+## **Exercise #1.0**: Getting familiar with the interface
 
 MWDB welcomes us with a list of recently uploaded samples.
 
@@ -89,7 +12,7 @@ On the right side of view you can see tags, relations with other objects and the
 
 During our tour we will go through all of these elements, starting from tags.
 
-### **Exercise #1.1**: Filtering samples by tags
+## **Exercise #1.1**: Filtering samples by tags
 
 **Goal**: get familiar with the interface, play around with the search query
 
@@ -175,7 +98,7 @@ During our tour we will go through all of these elements, starting from tags.
 
 6. Click on the Config box in the Relations graph to expand it. Zoom out the graph to see the whole graph.
 
-### **Exercise #1.3**: Looking for similar configurations
+## **Exercise #1.3**: Looking for similar configurations
 
 **Goal**:
 
@@ -229,7 +152,7 @@ During our tour we will go through all of these elements, starting from tags.
 
    Go to the Gandcrab configuration and check in Preview what was matched.
 
-### **Exercise #1.4**: Blobs and dynamic configurations
+## **Exercise #1.4**: Blobs and dynamic configurations
 
 **Goal**: Familiarize yourself with the blob object type
 
@@ -237,19 +160,19 @@ The third object type in MWDB is blob. While config represents structured (JSON)
 
 Let's take a look at some examples.
 
-1. Navigate to https://mwdb.cert.pl/blob/60c9ad80cde64e7cae9eec0c11dd98175860243aa40a3d8439bbf142d2a0e068
+1. Navigate to [https://mwdb.cert.pl/blob/60c9ad80cde64e7cae9eec0c11dd98175860243aa40a3d8439bbf142d2a0e068](https://mwdb.cert.pl/blob/60c9ad80cde64e7cae9eec0c11dd98175860243aa40a3d8439bbf142d2a0e068)
 
    What we see is bunch of decrypted strings from AgentTesla that were ripped from the malware sample.
 
    They're not structured because we don't semantically analyze every string, but it's still nice to have them in repository.
 
-2. Jump to https://mwdb.cert.pl/blob/48914f0a6b9f4499da31d2217a7ee2e8c8f35f93ab5c992333f5c1aa947d9009
+2. Jump to [https://mwdb.cert.pl/blob/48914f0a6b9f4499da31d2217a7ee2e8c8f35f93ab5c992333f5c1aa947d9009](https://mwdb.cert.pl/blob/48914f0a6b9f4499da31d2217a7ee2e8c8f35f93ab5c992333f5c1aa947d9009)
 
    We're now looking at decrypted strings from the Remcos family. Even if data is unstructured, it can be considered a part of static configuration and used in searching for malware similarities.
 
    Let's take a look at the parent of this blob: the static configuration object.
 
-   (https://mwdb.cert.pl/config/29c1f3c14a446b2a77ce58cbc59619fbfe7459c56fe1c8408597538384aa56ac)
+   [https://mwdb.cert.pl/config/29c1f3c14a446b2a77ce58cbc59619fbfe7459c56fe1c8408597538384aa56ac](https://mwdb.cert.pl/config/29c1f3c14a446b2a77ce58cbc59619fbfe7459c56fe1c8408597538384aa56ac)
 
    Not much, just C2 host/port and password. 
 
@@ -259,7 +182,7 @@ Let's take a look at some examples.
 
    The resulting query is `cfg.c2*.host:"ongod4life.ddns.net:4344"`
 
-   You should be looking at: https://mwdb.cert.pl/config/9afac348443a7aa9ca5d33cffcc984751cebf15f065cb90b48911943fb10e1f6
+   You should be looking at: [https://mwdb.cert.pl/config/9afac348443a7aa9ca5d33cffcc984751cebf15f065cb90b48911943fb10e1f6](https://mwdb.cert.pl/config/9afac348443a7aa9ca5d33cffcc984751cebf15f065cb90b48911943fb10e1f6)
 
    They're pretty much the same and only the `raw_cfg` differs. How to easily compare them?
 
@@ -280,7 +203,7 @@ Let's take a look at some examples.
 
 6. Check out the `hancitor` dynamic configuration.
 
-   https://mwdb.cert.pl/blob/3b032876cc2d77d28625b9dfee0686663e60385cda7f9031afac6cf2b0c6d6e4	
+   [https://mwdb.cert.pl/blob/3b032876cc2d77d28625b9dfee0686663e60385cda7f9031afac6cf2b0c6d6e4](https://mwdb.cert.pl/blob/3b032876cc2d77d28625b9dfee0686663e60385cda7f9031afac6cf2b0c6d6e4)	
 
    Dynamic configurations also parametrize the malware behavior, but they're fetched from external source. In that case we have set of commands to run a second stage malware.
 
@@ -290,11 +213,11 @@ Let's take a look at some examples.
 
    Example of more verbose Kronos dynamic configuration:
 
-   https://mwdb.cert.pl/blob/2e4d109edb8b2fa7c1f1d7592a284bbf15e3e51d24d1d9cdda91c9ae582cf05c/config
+   [https://mwdb.cert.pl/blob/2e4d109edb8b2fa7c1f1d7592a284bbf15e3e51d24d1d9cdda91c9ae582cf05c/config](https://mwdb.cert.pl/blob/2e4d109edb8b2fa7c1f1d7592a284bbf15e3e51d24d1d9cdda91c9ae582cf05c/config)
 
    Blob children are files dropped from C&C and structured (parsed) fragments of dynamic configuration
 
-### **Exercise #1.5**: Let's upload something!
+## **Exercise #1.5**: Let's upload something!
 
 **Goal**: Learn how object sharing and access inheritance work.
 
@@ -310,7 +233,7 @@ You should not have any results, because all samples you see are public. So how 
 
 1. Fetch an example sample from Github `ex5malware.zip`. **Don't unpack it**, just download to some temporary location.
 
-2. Click on `Upload` in the navbar (https://mwdb.cert.pl/upload)
+2. Click on `Upload` in the navbar ([https://mwdb.cert.pl/upload](https://mwdb.cert.pl/upload))
 
    Select the sample you have just downloaded.
 
@@ -333,264 +256,3 @@ If you want, you can always change your mind and share the sample with somebody 
 
 7. Go back to the original sample and share it with `public` using `Share with group` input field.
 
-## Part 2
-
-### Setup
-
-Create a virtualenv and activate it
-
-```
-$ python3 -m venv venv
-$ . venv/bin/activate
-```
-
-Install mwdblib with CLI extras + ipython shell
-
-```
-(venv) $ pip install mwdblib[cli] ipython
-```
-
-### **Exercise #2.1**: Get information about 10 recent files using mwdblib
-
-**Goal**: learn how the `recent_files` method works
-
-The main interface is MWDB object that provides various methods to interact with MWDB. Let's start with log in to mwdb.cert.pl service.
-
-```python
-In [1]: from mwdblib import MWDB
-
-In [2]: mwdb = MWDB()
-
-In [3]: mwdb.login()
-Username: demologin
-Password:
-```
-
-After successful login, let's begin with `recent_files` to get recently uploaded file from API.
-
-```python
-In [4]: mwdb.recent_files()
-Out[4]: <generator object MWDB._recent at ...>
-```
-
-`recent_files` function returns generator which does the same job as scrolling down the Samples view to view the older entries. Let's use the `next` function to get the most recent file:
-
-```python
-In [5]: files = mwdb.recent_files()
-
-In [6]: file = next(files)
-
-In [7]: file
-Out[7]: <mwdblib.file.MWDBFile at ...>
-```
-
-... and we got the file! 
-
-To get the next 10 files, we can use [itertools.islice](https://docs.python.org/3/library/itertools.html#itertools.islice) method:
-
-```python
-In [8]: import itertools
-
-In [9]: recent_10 = list(itertools.islice(files, 10))
-
-In [10]: recent_10
-Out[10]:
-[<mwdblib.file.MWDBFile at ...>,
- <mwdblib.file.MWDBFile at ...>,
- <mwdblib.file.MWDBFile at ...>,
- <mwdblib.file.MWDBFile at ...>,
- <mwdblib.file.MWDBFile at ...>,
- <mwdblib.file.MWDBFile at ...>,
- <mwdblib.file.MWDBFile at ...>,
- <mwdblib.file.MWDBFile at ...>,
- <mwdblib.file.MWDBFile at ...>,
- <mwdblib.file.MWDBFile at ...>]
-```
-
-But what we can do with these file objects?
-
-### **Exercise #2.2**: Check properties of `780e8fb254e0b8c299f834f61dc80809`
-
-**Objectives**:
-- Check file's name, tags and children
-- Get the first 16 bytes of the file
-- Get the linked configuration of this file.
-- Check names of the other files that are parents of that configuration
-
-Let's start with getting a file by hash. Use `mwdb.query_file` method to get an object.
-
-```python
-In [11]: file = mwdb.query_file("780e8fb254e0b8c299f834f61dc80809")
-
-In [12]: file
-Out[12]: <mwdblib.file.MWDBFile at ...>
-```
-
-Using the retrieved `MWDBFile` object we can get some details about the file e.g. name, tags, child objects.
-
-```python
-In [13]: file.name
-Out[13]: '400000_1973838fc27536e6'
-
-In [14]: file.tags
-Out[14]: ['dump:win32:exe', 'avemaria']
-
-In [15]: file.children
-Out[15]: [<mwdblib.file.MWDBConfig at ...>]
-```
-
-We can also download its contents
-
-```python
-In [16]: file.download()[:16]
-Out[16]: b'MZ\x90\x00\x03\x00\x00\x00\x04\x00\x00\x00\xff\xff\x00\x00'
-```
-
-As you can see in `[15]`, there is a configuration attached to the file. We can get it by index operator or use config attribute to get the latest configuration object. Let's see what has been ripped:
-
-```python
-In [17]: file.children[0].config
-Out[17]: {'c2': [{'host': '172.111.210.207'}], 'type': 'avemaria'}
-
-In [18]: file.config
-Out[18]: <mwdblib.file.MWDBConfig at ...>
-
-In [19]: file.config.config
-Out[19]: {'c2': [{'host': '172.111.210.207'}], 'type': 'avemaria'}
-```
-
-Many malware samples can share the same configuration. Let's explore them:
-
-```python
-In [20]: avemaria = file.config
-
-In [21]: avemaria.parents
-Out[21]: 
-[<mwdblib.file.MWDBFile at 0x7faed2383f10>,
- <mwdblib.file.MWDBFile at 0x7faed2383070>,
- <mwdblib.file.MWDBFile at 0x7faed2335b20>,
- <mwdblib.file.MWDBFile at 0x7faed2335a00>]
-
-In [22]: [parent.name for parent in avemaria.parents]
-In [22]: 
-['400000_2236f1a1cacde1dc',
- '400000_1973838fc27536e6',
- '400000_2bf452f7796153ef',
- '400000_3539b9d228df73c6']
-```
-
-### **Exercise #2.3**: Using mwdblib CLI
-
-**Objectives**:
-  - Download 10 files that were tagged as `ripped:lokibot` using mwdblib CLI
-
-1. First exit ipython using `exit()` or CTRL+D 
-
-2. Then type `mwdb` command in terminal and press ENTER
-
-   mwdblib library installs CLI tool along with the Python binding which can be used in fancy oneliners and Bash scripts
-
-3. Type `mwdb list` to see the list of recent files
-
-4. Copy one of the hashes and paste as a `mwdb get <hash>` argument
-
-5. Download file contents using `mwdb fetch <hash>`
-
-6. Search for other files (e.g. ripped:lokibot) using `mwdb search 'tag:"ripped:lokibot"'`
-
-7. You can also get only file hashes for further processing by adding `-o short -n 10`
-
-   (`-o short` means hash-only output and `-n 10` fetches only 10 first files)
-
-8. Make a oneliner that will download first 10 samples tagged as `ripped:lokibot`
-
-Answer:
-
-```
-mwdb search 'tag:"ripped:lokibot"' -o short -n 10 | xargs -n 1 mwdb fetch
-```
-
-or
-
-```
-for f in $(mwdb search 'tag:"ripped:lokibot"' -o short -n 10); do mwdb fetch $f; done
-```
-
-### **Exercise #2.4**: Strings in binary
-
-## Part 3
-
-### Setup
-
-This part requires [Karton Playground](https://github.com/CERT-Polska/karton-playground) to be set up.
-
-```shell
-git clone https://github.com/CERT-Polska/karton-playground.git
-cd karton-playground
-sudo docker-compose up  # this may take a while
-```
-
-Also take a look at the [Karton documentation](https://karton-core.readthedocs.io/en/latest/)
-
-**Available services**
-
-- `127.0.0.1:8030` karton-dashboard
-- `127.0.0.1:8080` mwdb-core (user: admin, password: admin)
-- `127.0.0.1:8090` minio (user: mwdb, password: mwdbmwdb)
-
-### **Exercise 3.1**: Adding new service to the Karton pipeline
-
-**Goal**: Learn how to connect new karton systems to your network
-
-1. Integrate an existing karton service into your pipeline: karton-autoit-ripper
-
-https://github.com/CERT-Polska/karton-autoit-ripper
-
-```shell
-$ python3 -m venv venv
-$ source ./venv/bin/activate
-$ pip install karton-autoit-ripper
-
-$ # playground-specific: copy local config to cwd
-$ cp config/karton.local.ini karton.ini
-$ karton-autoit-ripper
-[2021-04-11 17:19:57,867][INFO] Service karton.autoit-ripper started
-```
-
-2. Download a sample, and verify its hash
-
-```shell
-$ wget https://github.com/CERT-Polska/training-mwdb/blob/main/autoit-malware.bin
-$ sha256sum autoit-malware.bin
-a4816d4fecd6d2806d5b105c3aab55f4a1eb5deb3b126f317093a4dc4aab88a1 autoit-malware.bin
-```
-
-3. Finally, upload it to your local mwdb (http://127.0.0.1:8080, admin:admin)
-
-### **Exercise 3.2**: Setup karton-yaramatcher
-
-**Goal**: Learn how to connect new karton systems to your network
-
-### **Exercise 3.3**: Write your own service
-
-**Goal**: Learn how to create a new karton service from ground up
-
-1. Download a template:
-
-https://github.com/CERT-Polska/training-mwdb/blob/main/karton-template.py
-
-2. Edit the template, and:
-
-- Run the strings utility on every incoming sample
-- Save the result in a variable (use subprocess.check_output)
-- Upload the result to mwdb (already handled in the template
-
-## Part 4
-
-### Setup
-
-```shell
-$ python3 -m venv venv
-$ source ./venv/bin/activate
-$ pip install malduck
-```
