@@ -61,7 +61,7 @@ https://github.com/CERT-Polska/training-mwdb/blob/main/karton-template.py
 
 2. Edit the template, and:
 
-- Run the strings utility on every incoming sample
-- Save the result in a variable (use subprocess.check_output)
-- Upload the result to mwdb (already handled in the template
+- Run the `strings` utility on every incoming sample
+- Save the result in a variable (use [subprocess.check_output](https://docs.python.org/3/library/subprocess.html#subprocess.check_output))
+- Upload the result to mwdb (already handled in the template)
 
