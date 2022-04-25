@@ -28,17 +28,17 @@ Open a terminal and check if these tools are installed:
   ```shell
   $ docker-compose
   ```
-  https://docs.docker.com/engine/install/ubuntu/
+  [Docker Engine installation instructions for Ubuntu (docs.docker.com)](https://docs.docker.com/engine/install/ubuntu/)
 
-  https://docs.docker.com/compose/install/
+  [Docker Compose installation instructions (docs.docker.com)](https://docs.docker.com/compose/install/)
 
 Recommended environment is Ubuntu 18.04/20.04. Software used in training was not tested on other platforms (e.g. Mac OS, Windows), so prepare a fresh Ubuntu VM for the best workshop experience, especially if your host environment is unusual.
 
-## Cheat-sheet for exercises
+## Guides for exercises
 
 - [mwdb-core - Advanced search based on Lucene queries](https://mwdb.readthedocs.io/en/latest/user-guide/7-Lucene-search.html)
 
-- [mwdblib - guide](https://mwdb.readthedocs.io/en/latest/user-guide/8-REST-and-mwdblib.html)
+- [mwdblib - Guide for REST API and mwdblib usage](https://mwdb.readthedocs.io/en/latest/user-guide/8-REST-and-mwdblib.html)
 
 - [mwdblib - API reference](https://mwdblib.readthedocs.io/en/latest/)
 

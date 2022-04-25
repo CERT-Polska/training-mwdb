@@ -167,7 +167,7 @@ In [22]:
 
    (`-o short` means hash-only output and `-n 10` fetches only 10 first files)
 
-8. Make a oneliner that will download first 10 samples tagged as `ripped:lokibot`
+8. Make an oneliner that will download first 10 samples tagged as `ripped:lokibot`
 
 Answer:
 
@@ -183,4 +183,6 @@ for f in $(mwdb search 'tag:"ripped:lokibot"' -o short -n 10); do mwdb fetch $f;
 
 ## **Exercise #2.4**: Strings in binary
 
-Blabla
+**Objectives**:
+   - Download all files related with XXX config and check for specific string
+

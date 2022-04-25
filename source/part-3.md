@@ -22,9 +22,7 @@ Also take a look at the [Karton documentation](https://karton-core.readthedocs.i
 
 **Goal**: Learn how to connect new karton systems to your network
 
-1. Integrate an existing karton service into your pipeline: karton-autoit-ripper
-
-https://github.com/CERT-Polska/karton-autoit-ripper
+1. Integrate an existing karton service into your pipeline: [karton-autoit-ripper](https://github.com/CERT-Polska/karton-autoit-ripper)
 
 ```shell
 $ python3 -m venv venv
@@ -45,7 +43,7 @@ $ sha256sum autoit-malware.bin
 a4816d4fecd6d2806d5b105c3aab55f4a1eb5deb3b126f317093a4dc4aab88a1 autoit-malware.bin
 ```
 
-3. Finally, upload it to your local mwdb (http://127.0.0.1:8080, admin:admin)
+3. Finally, upload it to your local mwdb ([http://127.0.0.1:8080](http://127.0.0.1:8080), admin:admin)
 
 ## **Exercise #3.2**: Setup karton-yaramatcher
 
@@ -57,11 +55,10 @@ a4816d4fecd6d2806d5b105c3aab55f4a1eb5deb3b126f317093a4dc4aab88a1 autoit-malware.
 
 1. Download a template:
 
-https://github.com/CERT-Polska/training-mwdb/blob/main/karton-template.py
+[https://github.com/CERT-Polska/training-mwdb/blob/main/karton-template.py](https://github.com/CERT-Polska/training-mwdb/blob/main/karton-template.py)
 
 2. Edit the template, and:
 
 - Run the `strings` utility on every incoming sample
 - Save the result in a variable (use [subprocess.check_output](https://docs.python.org/3/library/subprocess.html#subprocess.check_output))
 - Upload the result to mwdb (already handled in the template)
-

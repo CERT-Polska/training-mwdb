@@ -160,19 +160,19 @@ The third object type in MWDB is blob. While config represents structured (JSON)
 
 Let's take a look at some examples.
 
-1. Navigate to https://mwdb.cert.pl/blob/60c9ad80cde64e7cae9eec0c11dd98175860243aa40a3d8439bbf142d2a0e068
+1. Navigate to [https://mwdb.cert.pl/blob/60c9ad80cde64e7cae9eec0c11dd98175860243aa40a3d8439bbf142d2a0e068](https://mwdb.cert.pl/blob/60c9ad80cde64e7cae9eec0c11dd98175860243aa40a3d8439bbf142d2a0e068)
 
    What we see is bunch of decrypted strings from AgentTesla that were ripped from the malware sample.
 
    They're not structured because we don't semantically analyze every string, but it's still nice to have them in repository.
 
-2. Jump to https://mwdb.cert.pl/blob/48914f0a6b9f4499da31d2217a7ee2e8c8f35f93ab5c992333f5c1aa947d9009
+2. Jump to [https://mwdb.cert.pl/blob/48914f0a6b9f4499da31d2217a7ee2e8c8f35f93ab5c992333f5c1aa947d9009](https://mwdb.cert.pl/blob/48914f0a6b9f4499da31d2217a7ee2e8c8f35f93ab5c992333f5c1aa947d9009)
 
    We're now looking at decrypted strings from the Remcos family. Even if data is unstructured, it can be considered a part of static configuration and used in searching for malware similarities.
 
    Let's take a look at the parent of this blob: the static configuration object.
 
-   (https://mwdb.cert.pl/config/29c1f3c14a446b2a77ce58cbc59619fbfe7459c56fe1c8408597538384aa56ac)
+   [https://mwdb.cert.pl/config/29c1f3c14a446b2a77ce58cbc59619fbfe7459c56fe1c8408597538384aa56ac](https://mwdb.cert.pl/config/29c1f3c14a446b2a77ce58cbc59619fbfe7459c56fe1c8408597538384aa56ac)
 
    Not much, just C2 host/port and password. 
 
@@ -182,7 +182,7 @@ Let's take a look at some examples.
 
    The resulting query is `cfg.c2*.host:"ongod4life.ddns.net:4344"`
 
-   You should be looking at: https://mwdb.cert.pl/config/9afac348443a7aa9ca5d33cffcc984751cebf15f065cb90b48911943fb10e1f6
+   You should be looking at: [https://mwdb.cert.pl/config/9afac348443a7aa9ca5d33cffcc984751cebf15f065cb90b48911943fb10e1f6](https://mwdb.cert.pl/config/9afac348443a7aa9ca5d33cffcc984751cebf15f065cb90b48911943fb10e1f6)
 
    They're pretty much the same and only the `raw_cfg` differs. How to easily compare them?
 
@@ -203,7 +203,7 @@ Let's take a look at some examples.
 
 6. Check out the `hancitor` dynamic configuration.
 
-   https://mwdb.cert.pl/blob/3b032876cc2d77d28625b9dfee0686663e60385cda7f9031afac6cf2b0c6d6e4	
+   [https://mwdb.cert.pl/blob/3b032876cc2d77d28625b9dfee0686663e60385cda7f9031afac6cf2b0c6d6e4](https://mwdb.cert.pl/blob/3b032876cc2d77d28625b9dfee0686663e60385cda7f9031afac6cf2b0c6d6e4)	
 
    Dynamic configurations also parametrize the malware behavior, but they're fetched from external source. In that case we have set of commands to run a second stage malware.
 
@@ -213,7 +213,7 @@ Let's take a look at some examples.
 
    Example of more verbose Kronos dynamic configuration:
 
-   https://mwdb.cert.pl/blob/2e4d109edb8b2fa7c1f1d7592a284bbf15e3e51d24d1d9cdda91c9ae582cf05c/config
+   [https://mwdb.cert.pl/blob/2e4d109edb8b2fa7c1f1d7592a284bbf15e3e51d24d1d9cdda91c9ae582cf05c/config](https://mwdb.cert.pl/blob/2e4d109edb8b2fa7c1f1d7592a284bbf15e3e51d24d1d9cdda91c9ae582cf05c/config)
 
    Blob children are files dropped from C&C and structured (parsed) fragments of dynamic configuration
 
@@ -233,7 +233,7 @@ You should not have any results, because all samples you see are public. So how 
 
 1. Fetch an example sample from Github `ex5malware.zip`. **Don't unpack it**, just download to some temporary location.
 
-2. Click on `Upload` in the navbar (https://mwdb.cert.pl/upload)
+2. Click on `Upload` in the navbar ([https://mwdb.cert.pl/upload](https://mwdb.cert.pl/upload))
 
    Select the sample you have just downloaded.
 
