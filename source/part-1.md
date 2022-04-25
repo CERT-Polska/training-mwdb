@@ -31,7 +31,7 @@ During our tour we will go through all of these elements, starting from tags.
    - field conditions `tag:"runnable:win32:exe"` that support wildcards `*`, `?`
    - operators: `OR`, `AND`, `NOT`
 
-   As you can see, we have various tags identifying the malware as 'formbook' based on various criteria. If we want to find everything that is recognized as formbook regardless of the source of classification, we can just use the wildcards (like in `ripped:*` case):
+   As you can see, we have various tags identifying the malware based on various criteria. If we want to find everything that is recognized as specific family regardless of the source of classification, we can just use the wildcards (like in `ripped:*` case):
 
    ```
    tag:*formbook*
@@ -100,7 +100,7 @@ During our tour we will go through all of these elements, starting from tags.
 
 ## **Exercise #1.3**: Looking for similar configurations
 
-**Goal**:
+**Goal**: Find configurations that are similar to Formbook config 
 
 1. Click on the config hash (`f2e216695d4ce7233f5feb846bc81b8fffe9507988c7f5caaca680c0861e5e02`) in `Related configs` tab.
 
@@ -231,7 +231,11 @@ NOT shared:public
 
 You should not have any results, because all samples you see are public. So how to gather some 'private' samples? You need to upload them!
 
-1. Fetch an example sample from Github `ex5malware.zip`. **Don't unpack it**, just download to some temporary location.
+1. Fetch an example sample from GitHub `ex5malware.zip`. **Don't unpack it**, just download to some temporary location.
+
+   ```
+   $ wget https://github.com/CERT-Polska/training-mwdb/raw/main/ex5malware.zip
+   ```
 
 2. Click on `Upload` in the navbar ([https://mwdb.cert.pl/upload](https://mwdb.cert.pl/upload))
 
@@ -250,7 +254,7 @@ You should not have any results, because all samples you see are public. So how 
 
 6. Use the Relations tab to traverse to the Config. Who has access to the configuration?
 
-In MWDB sharing model, if you upload an private sample you get immediate access to all its descendants. So you always get all the data related with ripped configuration, but not necessarily all of its parents.
+In MWDB sharing model, if you upload a private sample you get immediate access to all its descendants. So you always get all the data related with ripped configuration, but not necessarily all of its parents.
 
 If you want, you can always change your mind and share the sample with somebody else. But you can't reverse the action, so if something was shared by mistake, contact the administrators.
 
