@@ -54,7 +54,7 @@ print(aes.ecb.decrypt(key=md5(b"secret").digest(), data=bytes.fromhex("14a199330
 ```
 ````
 
-### 3. Dissassembly engine
+### 3. Disassembly engine
 
 We've compiled the following function to x86 (32bit). Let's see if you can get the secret integer using malducks `disasm` engine!
 
@@ -238,6 +238,8 @@ Your task is to create 3 extractor modules (including the YARA rules) that autom
 
 * All password are in `flag{<hexdigits>}` format
 * You can create the YARA rules just using the output from `strings`
+* Remember to pass `x64=True` in disasm calls
+
 
 
 ### 3. Solution
