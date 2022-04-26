@@ -65,14 +65,14 @@ bool check_secret(unsigned int num) {
 }
 ```
 
-Compiled blob: `5589e583ec10e81b000000056d0000008b4508357777adde8945fc837dfc000f94c0c9`
+Compiled blob: `5589e583ec108b4508357777adde8945fc837dfc000f94c0c9c3`
 
 
 ````{dropdown} Click to see the intended solution
 ```python
 from malduck import disasm
 
-assembly = "5589e583ec10e81b000000056d0000008b4508357777adde8945fc837dfc000f94c0c9"
+assembly = "5589e583ec108b4508357777adde8945fc837dfc000f94c0c9c3"
 
 for c in disasm(data=bytes.fromhex(assembly), addr=0):
     if c.mnem == "xor" and c.op2.is_imm:
