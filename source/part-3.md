@@ -45,11 +45,7 @@ a4816d4fecd6d2806d5b105c3aab55f4a1eb5deb3b126f317093a4dc4aab88a1 autoit-malware.
 
 3. Finally, upload it to your local mwdb ([http://127.0.0.1:8080](http://127.0.0.1:8080), admin:admin)
 
-## **Exercise #3.2**: Setup karton-yaramatcher
-
-**Goal**: Learn how to connect new karton systems to your network
-
-## **Exercise #3.3**: Write your own service
+## **Exercise #3.2**: Write your own service
 
 **Goal**: Learn how to create a new karton service from ground up
 
