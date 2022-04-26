@@ -9,9 +9,17 @@ $ python3 -m venv venv
 $ . venv/bin/activate
 ```
 
-Install mwdblib with CLI extras + ipython shell
+Install mwdblib with CLI extras + ipython shell for convenience
 
 ```
+(venv) $ pip install mwdblib[cli] ipython
+```
+
+If you have problems during installation with ``cryptography`` package, try to upgrade pip and retry the previous step.
+
+```
+(venv) $ pip install -U pip
+...
 (venv) $ pip install mwdblib[cli] ipython
 ```
 
@@ -181,8 +189,24 @@ or
 for f in $(mwdb search 'tag:"ripped:lokibot"' -o short -n 10); do mwdb fetch $f; done
 ```
 
-## **Exercise #2.4**: Strings in binary
+## **Exercise #2.4**: Joining CLI with other tools
 
 **Objectives**:
-   - Download all files related with XXX config and check for specific string
+   - Get 10 most recent Mutexes from ``nanocore`` configs
 
+````{dropdown} Click to see the intended solution
+```bash
+for f in $(mwdb search configs 'family:nanocore' -n 10 -o short )
+        mwdb fetch $f /tmp/$f
+        cat /tmp/$f | jq '.Mutex'
+end
+```
+
+or
+
+```bash
+for f in $(mwdb search configs 'family:nanocore' -n 10 -o short )
+        mwdb fetch $f - | jq '.Mutex'
+end
+```
+````
