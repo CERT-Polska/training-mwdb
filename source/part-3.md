@@ -38,7 +38,7 @@ $ karton-autoit-ripper
 2. Download a sample, and verify its hash
 
 ```shell
-$ wget https://github.com/CERT-Polska/training-mwdb/blob/main/autoit-malware.bin
+$ wget https://github.com/CERT-Polska/training-mwdb/raw/main/autoit-malware.bin
 $ sha256sum autoit-malware.bin
 a4816d4fecd6d2806d5b105c3aab55f4a1eb5deb3b126f317093a4dc4aab88a1 autoit-malware.bin
 ```
