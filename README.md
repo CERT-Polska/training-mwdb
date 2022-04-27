@@ -37,3 +37,6 @@ Recommended environment is Ubuntu 18.04/20.04. Software used in training was not
 - [karton - documentation](https://karton-core.readthedocs.io/en/latest/)
 
 - [malduck - API reference](https://malduck.readthedocs.io/en/latest/)
+
+![Co-financed by the Connecting Europe Facility by of the European Union](https://www.cert.pl/uploads/2019/02/en_horizontal_cef_logo-e1550495232540.png)
+
