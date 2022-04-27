@@ -2,6 +2,8 @@
 
 Training materials can be found on [training-mwdb.readthedocs.io](https://training-mwdb.readthedocs.io/en/latest/).
 
+Slides from the Botconf workshop can be found [here](https://github.com/CERT-Polska/training-mwdb/raw/main/Botconf%202022%20-%20Build%20Your%20Own%20Malware%20Analysis%20Pipeline%20Using%20New%20Open%20Source%20Tools.pdf)
+
 ## Prerequisites
 
 Open a terminal and check if these tools are installed:
