@@ -42,13 +42,13 @@ During our tour we will go through all of these elements, starting from tags.
 4. Now, add an additional condition to the query:
 
    ```
-   AND size:[10000 TO 15000]
+   tag:*formbook* AND size:[10000 TO 15000]
    ```
 
-   Lucene query language also supports ranges so we can search for samples of given size or uploaded on given date
+5. Lucene query language also supports ranges so we can search for samples of given size or uploaded on given date
 
    ```
-   upload_time:<=2020-01-01
+   tag:*formbook* AND size:[10000 TO 15000] AND upload_time:<=2021-01-01
    ```
 
 ## **Exercise #1.2**: Exploring sample view and hierarchy

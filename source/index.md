@@ -21,7 +21,7 @@ part-4.md
 
 Open a terminal and check if these tools are installed:
 
-- **Python 3** (recommended 3.7 or newer) 
+- **Python 3** (recommended 3.8 or newer) 
   ```shell
   $ python3 -m pip
   ```
@@ -37,7 +37,7 @@ Open a terminal and check if these tools are installed:
 
   [Docker Compose installation instructions (docs.docker.com)](https://docs.docker.com/compose/install/)
 
-Recommended environment is Ubuntu 18.04/20.04. Software used in training was not tested on other platforms (e.g. Mac OS, Windows), so prepare a fresh Ubuntu VM for the best workshop experience, especially if your host environment is unusual.
+Recommended environment is Ubuntu 20.04/22.04. Software used in training was not tested on other platforms (e.g. Mac OS, Windows), so prepare a fresh Ubuntu VM for the best workshop experience, especially if your host environment is unusual.
 
 ## Guides for exercises
 
