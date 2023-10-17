@@ -152,6 +152,10 @@ In [22]:
  '400000_3539b9d228df73c6']
 ```
 
+**Task:** use `mwdb.search_configs("family:valak")` to iterate over the list of all configs related to the valak malware family.
+Use mwdblib to get a list of all URLs referenced by this family (config field `urls`). How many URLs are there in total?
+(Note: some URLs are repeating. For this exericse you don't have to worry about deduplicating them).
+
 ## **Exercise #2.3**: Using mwdblib CLI
 
 **Objectives**:
@@ -163,7 +167,9 @@ In [22]:
 
    mwdblib library installs CLI tool along with the Python binding which can be used in fancy oneliners and Bash scripts
 
-3. Type `mwdb list` to see the list of recent files
+   Login permanently using `mwdb login`. Try `mwdb login --no-keyring` if you have problems.
+
+3. Type `mwdb list` to see the list of recent files (note: you can also try to add `-o short` or `-o json`)
 
 4. Copy one of the hashes and paste as a `mwdb get <hash>` argument
 
@@ -189,10 +195,13 @@ or
 for f in $(mwdb search 'tag:"ripped:lokibot"' -o short -n 10); do mwdb fetch $f; done
 ```
 
+**Task** Use `mwdb get` to get information about hash `c6f50cb47d61092240bc9e7fd6631451ddb617011ab038b42a674585668dc54a`.
+What is the malware family of this sample (you can use the tags to get this information)?
+
 ## **Exercise #2.4**: Joining CLI with other tools
 
 **Objectives**:
-   - Get 10 most recent Mutexes from ``nanocore`` configs
+   - Get 10 most recent Mutexes from ``nanocore`` configs. External tool called `jq` may be useful.
 
 ````{dropdown} Click to see the intended solution
 ```bash
