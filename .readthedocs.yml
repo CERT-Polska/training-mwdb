@@ -1,6 +1,6 @@
 version: 2
 sphinx:
-  configuration: docs/conf.py
+  configuration: source/conf.py
 formats:
   - pdf
 build:
@@ -9,6 +9,6 @@ build:
     python: "3.10"
 python:
   install:
-    - requirements: docs/requirements.txt
+    - requirements: requirements.txt
     - method: pip
       path: .
