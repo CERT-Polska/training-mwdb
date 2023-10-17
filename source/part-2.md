@@ -195,6 +195,9 @@ or
 for f in $(mwdb search 'tag:"ripped:lokibot"' -o short -n 10); do mwdb fetch $f; done
 ```
 
+**Task** Use `mwdb get` to get information about hash `c6f50cb47d61092240bc9e7fd6631451ddb617011ab038b42a674585668dc54a`.
+What is the malware family of this sample (you can use the tags to get this information)?
+
 ## **Exercise #2.4**: Joining CLI with other tools
 
 **Objectives**:
