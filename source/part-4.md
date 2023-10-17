@@ -25,39 +25,38 @@ Commands:
 
 We'll come back to `extract` in a few minutes, let's try out `resources` and extract PE resources from [`unknown_sample_07c69147626042067ef9adfa89584a4f93f8ccd24dec87dd8f291d946d465b24.bin`](https://github.com/CERT-Polska/training-mwdb/blob/main/unknown_sample_07c69147626042067ef9adfa89584a4f93f8ccd24dec87dd8f291d946d465b24.bin).
 
-What type of malware is this? Which family?
+Just by looking at the unpacked resource, can you guess what type of malware this is and which family does it belong to?
 
 
 ### 2. Crypto functions
 
-Malduck exposes some of the most commonly used crypto/compression functions used by malware.
+Malduck implements some of the most commonly used crypto/compression functions used by malware.
 
-See if you can use the exposed functions to decrypt the following cryptograms:
+See if you can use the available malduck functions to decrypt the following cryptograms:
 
-* xor `q9e/n}0` with a password `3v1l!`
-* RC4 hexstring `ce8d550107a2b8c58ca6cd2d` using password `black`
-* Decrypt hexstring `14a19933083db6f3880f5f48ae86f518` using AES-ECB and the key derived from md5 of `secret`
+* xor `u:p+Z{3}` with a password `3v1l!`
+* RC4 hexstring `c08d5e066fb0afcc90bbc53eb592` using password `black`
+* Decrypt hexstring `538cce7ccaa57d03860863207dfe345f` using AES-ECB and the key derived from md5 of `secret`
 
 ````{dropdown} Click to see the intended solution
 ```python
 from malduck import xor
 # key comes first in args
-print(xor(b"3v1l!", b"q9e/n}0"))
+print(xor(b"3v1l!", b"u:p+Z{3}"))
 
 from malduck import rc4
-print(rc4(key=b"black", data=bytes.fromhex("ce8d550107a2b8c58ca6cd2d")))
+print(rc4(key=b"black", data=bytes.fromhex("c08d5e066fb0afcc90bbc53eb592")))
 
 from malduck import aes
 from hashlib import md5
 
-print(aes.ecb.decrypt(key=md5(b"secret").digest(), data=bytes.fromhex("14a19933083db6f3880f5f48ae86f518")))
+print(aes.ecb.decrypt(key=md5(b"secret").digest(), data=bytes.fromhex("538cce7ccaa57d03860863207dfe345f")))
 ```
 ````
 
 ### 3. Disassembly engine
 
 We've compiled the following function to x86 (32bit). Let's see if you can get the secret integer using malducks `disasm` engine!
-
 ```c
 bool check_secret(unsigned int num) {
     unsigned int result = num ^ SECRET;
@@ -65,7 +64,9 @@ bool check_secret(unsigned int num) {
 }
 ```
 
-Compiled blob: `5589e583ec108b4508357777adde8945fc837dfc000f94c0c9c3`
+**Hint**: look for instructions that use the `xor` opcode.
+
+Compiled assembly shellcode: `5589e583ec108b4508357777adde8945fc837dfc000f94c0c9c3`
 
 
 ````{dropdown} Click to see the intended solution
