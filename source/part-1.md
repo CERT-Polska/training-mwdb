@@ -205,7 +205,7 @@ Let's take a look at some examples.
    ```{eval-rst}
    .. warning::
 
-      This feature has known bug in v2.10.1, so go directly into this link: ` diff/48914f0a6b9f4499da31d2217a7ee2e8c8f35f93ab5c992333f5c1aa947d9009/da2055f0e90355bfaf3cc932f7fdb2f82bfd79c26f95b61b23b9cd77f9b0e32d <https://mwdb.cert.pl/diff/48914f0a6b9f4499da31d2217a7ee2e8c8f35f93ab5c992333f5c1aa947d9009/da2055f0e90355bfaf3cc932f7fdb2f82bfd79c26f95b61b23b9cd77f9b0e32d>`_
+      This feature has known bug in v2.10.1, so go directly into this link: https://mwdb.cert.pl/diff/48914f0a6b9f4499da31d2217a7ee2e8c8f35f93ab5c992333f5c1aa947d9009/da2055f0e90355bfaf3cc932f7fdb2f82bfd79c26f95b61b23b9cd77f9b0e32d
    ```
    But blobs are not only the strings and unstructured static things.
 
