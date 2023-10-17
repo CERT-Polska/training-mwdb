@@ -82,7 +82,7 @@ Out[10]:
 
 But what we can do with these file objects?
 
-## **Exercise #2.2**: Check properties of `780e8fb254e0b8c299f834f61dc80809`
+## **Exercise #2.2**: Checking basic properties
 
 **Objectives**:
 - Check file's name, tags and children
