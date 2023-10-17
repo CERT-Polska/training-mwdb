@@ -142,6 +142,10 @@ During our tour we will go through all of these elements, starting from tags.
 
 7. Then click on `agenttesla` config (`e031b192d40f6d234756f8508f7d384db315983b57d8fc3216d20567056bd88b`) - you might have to scroll down a bit.
 
+   .. note::
+
+      **Hint:** Instead of scrolling, you can help yourself by adding `AND family:agenttesla` to the query
+
    Ok, there is no .land TLD. but .landa e-mail address. To ilustrate how full-text search works, go to Preview, press CTRL-F and type ".land" to see what parts of JSON were matched
 
    How we can improve our query? Let's add `"` character at the end to match the end string.
@@ -195,6 +199,12 @@ Let's take a look at some examples.
    `48914f0a6b9f4499da31d2217a7ee2e8c8f35f93ab5c992333f5c1aa947d9009`
 
    Then press ENTER and choose the searched blob. What's the difference between these blobs?
+
+   .. warning::
+
+      This feature has known bug in v2.10.1, so go directly into this link:
+
+      https://mwdb.cert.pl/diff/48914f0a6b9f4499da31d2217a7ee2e8c8f35f93ab5c992333f5c1aa947d9009/da2055f0e90355bfaf3cc932f7fdb2f82bfd79c26f95b61b23b9cd77f9b0e32d
 
    But blobs are not only the strings and unstructured static things.
 
