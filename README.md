@@ -2,7 +2,10 @@
 
 Training materials can be found on [training-mwdb.readthedocs.io](https://training-mwdb.readthedocs.io/en/latest/).
 
-Slides from the Botconf workshop can be found [here](https://github.com/CERT-Polska/training-mwdb/raw/main/Botconf%202022%20-%20Build%20Your%20Own%20Malware%20Analysis%20Pipeline%20Using%20New%20Open%20Source%20Tools.pdf)
+We have presented this workshop at various conferences around the world, you can find the slides for some of them below:
+
+* [hack.lu 2023](https://pretalx.com/hack-lu-2023/talk/3RBM3A/) - [slides](https://github.com/CERT-Polska/training-mwdb/raw/main/slides/hack.lu%202023%20-%20Build%20Your%20Own%20Malware%20Analysis%20Pipeline%20Using%20New%20Open%20Source%20Tools.pdf)
+* [Botconf 2022](https://www.botconf.eu/botconf-presentation-or-article/mwdb-open-source-tools-to-build-your-malware-analysis-pipeline/) - [slides](https://github.com/CERT-Polska/training-mwdb/raw/main/slides/Botconf%202022%20-%20Build%20Your%20Own%20Malware%20Analysis%20Pipeline%20Using%20New%20Open%20Source%20Tools.pdf)
 
 ## Prerequisites
 
