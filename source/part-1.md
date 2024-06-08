@@ -148,6 +148,8 @@ During our tour we will go through all of these elements, starting from tags.
 
 7. Then click on `agenttesla` config (`e031...`) - you might have to scroll down a bit.
 
+   **Question 4**: What is the full ID of the agenttesla config?
+
    ```{eval-rst}
    .. note::
 
@@ -163,8 +165,6 @@ During our tour we will go through all of these elements, starting from tags.
    ```
 
    Go to the Gandcrab configuration and check in Preview what was matched.
-
-8. **Question 4**: 
 
 9. **Question 5**: 
 

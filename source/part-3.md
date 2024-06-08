@@ -70,4 +70,4 @@ a4816d4fecd6d2806d5b105c3aab55f4a1eb5deb3b126f317093a4dc4aab88a1 autoit-malware.
 - Upload the result to mwdb (already handled in the template)
 
 3. **Question**: Upload `unknown_sample_07c69147626042067ef9adfa89584a4f93f8ccd24dec87dd8f291d946d465b24.bin` with the karton running.
-It should produce a child 
+The karton should add a child file to your file. What is its sha256? 
