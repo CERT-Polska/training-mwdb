@@ -140,7 +140,7 @@ During our tour we will go through all of these elements, starting from tags.
    cfg:"*.land*"
    ```
 
-7. Then click on `agenttesla` config (`e031b192d40f6d234756f8508f7d384db315983b57d8fc3216d20567056bd88b`) - you might have to scroll down a bit.
+7. Then click on `agenttesla` config (`e031...`) - you might have to scroll down a bit.
 
    ```{eval-rst}
    .. note::
