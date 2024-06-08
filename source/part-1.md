@@ -34,7 +34,7 @@ During our tour we will go through all of these elements, starting from tags.
    As you can see, we have various tags identifying the malware based on various criteria. If we want to find everything that is recognized as specific family regardless of the source of classification, we can just use the wildcards (like in `ripped:*` case):
 
    ```
-   tag:*formbook*
+   tag:"ripped:formbook"
    ```
 
    You probably also noticed that tags are colored and the color is not completely random. Explanation is on the slides.
@@ -42,14 +42,16 @@ During our tour we will go through all of these elements, starting from tags.
 4. Now, add an additional condition to the query:
 
    ```
-   tag:*formbook* AND size:[10000 TO 15000]
+   tag:"ripped:formbook" AND size:[10000 TO 15000]
    ```
 
 5. Lucene query language also supports ranges so we can search for samples of given size or uploaded on given date
 
    ```
-   tag:*formbook* AND size:[10000 TO 15000] AND upload_time:<=2021-01-01
+   tag:"ripped:formbook" AND size:[10000 TO 15000] AND upload_time:<=2022-01-01
    ```
+
+6. **Question 1**: What is the oldest available formbook sample between 10000 and 15000 bytes (sha256 hash)
 
 ## **Exercise #1.2**: Exploring sample view and hierarchy
 
@@ -98,6 +100,10 @@ During our tour we will go through all of these elements, starting from tags.
 
 6. Click on the Config box in the Relations graph to expand it. Zoom out the graph to see the whole graph.
 
+7. **Question 2**: You followed a chain of rar->exe->memory dump. What is the md5 hash of the other archive which produced the same memory dump?
+
+8. **Question 3**: What is the full c2_url extracted from that memory dump?
+
 ## **Exercise #1.3**: Looking for similar configurations
 
 **Goal**: Find configurations that are similar to Formbook config 
@@ -106,7 +112,7 @@ During our tour we will go through all of these elements, starting from tags.
 
 2. Go to the Preview tab
 
-   Configurations are just a simple JSON objects. The only special thing is hashing algorithm e.g. lists are hashed non-orderwise, so if domains were ripped in different order, configuration hash will be still the same.
+   Configurations are just a simple JSON objects. The only special thing is the structured hash algorithm used. For example, lists are hashed non-orderwise, so if domains were ripped in different order, configuration hash will be still the same.
 
 3. Go back to the Details tab. Expand `urls` and click on `www.discorddeno.land/suod/`
 
@@ -158,6 +164,10 @@ During our tour we will go through all of these elements, starting from tags.
 
    Go to the Gandcrab configuration and check in Preview what was matched.
 
+8. **Question 4**: 
+
+9. **Question 5**: 
+
 ## **Exercise #1.4**: Blobs and dynamic configurations
 
 **Goal**: Familiarize yourself with the blob object type
@@ -188,7 +198,7 @@ Let's take a look at some examples.
 
    The resulting query is `cfg.c2*.host:"ongod4life.ddns.net:4344"`
 
-   You should be looking at: [https://mwdb.cert.pl/config/9afac348443a7aa9ca5d33cffcc984751cebf15f065cb90b48911943fb10e1f6](https://mwdb.cert.pl/config/9afac348443a7aa9ca5d33cffcc984751cebf15f065cb90b48911943fb10e1f6)
+   **Question 6**: What is the sha256 hash of the second sample with the same C2?
 
    They're pretty much the same and only the `raw_cfg` differs. How to easily compare them?
 
@@ -202,11 +212,8 @@ Let's take a look at some examples.
 
    Then press ENTER and choose the searched blob. What's the difference between these blobs?
 
-   ```{eval-rst}
-   .. warning::
+   **Question 7**: When diffing blobs 48914f... and da2055..., only two lines have changed. What did "INCFROM JAH" change to?
 
-      This feature has known bug in v2.10.1, so go directly into this link: https://mwdb.cert.pl/diff/48914f0a6b9f4499da31d2217a7ee2e8c8f35f93ab5c992333f5c1aa947d9009/da2055f0e90355bfaf3cc932f7fdb2f82bfd79c26f95b61b23b9cd77f9b0e32d
-   ```
    But blobs are not only the strings and unstructured static things.
 
 5. Go to the `Blobs` list and click on `dyn_cfg` in `Blob type` column or type manually `type:dyn_cfg`.
@@ -219,6 +226,8 @@ Let's take a look at some examples.
    Dynamic configurations also parametrize the malware behavior, but they're fetched from external source. In that case we have set of commands to run a second stage malware.
 
    Fetched second stage is linked as a blob child.
+
+   By the way, the process of automatically downloading things from C2 servers is handled by another project, not covered by this guide: [mtracker](https://github.com/CERT-Polska/mtracker/) 
 
    Other possible types of dynamic configuration are injects, mail templates for spam botnets or malware updates.
 
@@ -240,7 +249,7 @@ If you use a query:
 NOT shared:public
 ```
 
-You should not have any results, because all samples you see are public. So how to gather some 'private' samples? You need to upload them!
+You will ~~not get any results~~ get a request timeout, because all samples you can access are public. So how to gather some 'private' samples? You need to upload them!
 
 1. Fetch an example sample from GitHub `ex5malware.zip`. **Don't unpack it**, just download to some temporary location.
 
@@ -271,3 +280,4 @@ If you want, you can always change your mind and share the sample with somebody 
 
 7. Go back to the original sample and share it with `public` using `Share with group` input field.
 
+**Question 8**: What is the email address of the agenttesla sample contained in the zip?

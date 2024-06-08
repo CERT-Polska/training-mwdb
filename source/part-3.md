@@ -18,6 +18,8 @@ Also take a look at the [Karton documentation](https://karton-core.readthedocs.i
 - `127.0.0.1:8080` mwdb-core (user: admin, password: admin)
 - `127.0.0.1:8090` minio (user: mwdb, password: mwdbmwdb)
 
+**Question**: Download a file citadelmalware.bin from the repository, and upload it to mwdb. It will be tagged by karton. What is the tag name?
+
 ## **Exercise #3.1**: Adding new service to the Karton pipeline
 
 **Goal**: Learn how to connect new karton systems to your network
@@ -31,6 +33,10 @@ $ pip install karton-autoit-ripper
 
 $ # playground-specific: copy local config to cwd
 $ cp config/karton.ini karton.ini
+
+$ # temporary fix - karton-autoit-ripper was broken by a downstream change
+$ # and we noticed a day before giving a training :)
+$ pip install malduck==4.4.1   # this will update malduck to fixed version 
 $ karton-autoit-ripper
 [2021-04-11 17:19:57,867][INFO] Service karton.autoit-ripper started
 ```
@@ -45,6 +51,10 @@ a4816d4fecd6d2806d5b105c3aab55f4a1eb5deb3b126f317093a4dc4aab88a1 autoit-malware.
 
 3. Finally, upload it to your local mwdb ([http://127.0.0.1:8080](http://127.0.0.1:8080), admin:admin)
 
+4. **Question**: What is the sha256 of the extracted autoit script?
+
+5. Take a look at the extracted script using "preview".
+
 ## **Exercise #3.2**: Write your own service
 
 **Goal**: Learn how to create a new karton service from ground up
@@ -58,3 +68,6 @@ a4816d4fecd6d2806d5b105c3aab55f4a1eb5deb3b126f317093a4dc4aab88a1 autoit-malware.
 - Run the `strings` utility on every incoming sample
 - Save the result in a variable (use [subprocess.check_output](https://docs.python.org/3/library/subprocess.html#subprocess.check_output))
 - Upload the result to mwdb (already handled in the template)
+
+3. **Question**: Upload `unknown_sample_07c69147626042067ef9adfa89584a4f93f8ccd24dec87dd8f291d946d465b24.bin` with the karton running.
+It should produce a child 

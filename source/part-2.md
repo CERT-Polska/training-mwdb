@@ -154,7 +154,7 @@ In [22]:
 
 **Task:** use `mwdb.search_configs("family:valak")` to iterate over the list of all configs related to the valak malware family.
 Use mwdblib to get a list of all URLs referenced by this family (config field `urls`). How many URLs are there in total?
-(Note: some URLs are repeating. For this exericse you don't have to worry about deduplicating them).
+(Note: some URLs are repeating. For this exericse you don't have to worry about deduplicating them - both versions are accepted).
 
 ## **Exercise #2.3**: Using mwdblib CLI
 
@@ -205,17 +205,19 @@ What is the malware family of this sample (you can use the tags to get this info
 
 ````{dropdown} Click to see the intended solution
 ```bash
-for f in $(mwdb search configs 'family:nanocore' -n 10 -o short )
+for f in $(mwdb search configs 'family:nanocore' -n 10 -o short );
+do
         mwdb fetch $f /tmp/$f
         cat /tmp/$f | jq '.Mutex'
-end
+done
 ```
 
 or
 
 ```bash
-for f in $(mwdb search configs 'family:nanocore' -n 10 -o short )
+for f in $(mwdb search configs 'family:nanocore' -n 10 -o short );
+do
         mwdb fetch $f - | jq '.Mutex'
-end
+done
 ```
 ````
