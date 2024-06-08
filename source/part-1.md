@@ -166,7 +166,7 @@ During our tour we will go through all of these elements, starting from tags.
 
    Go to the Gandcrab configuration and check in Preview what was matched.
 
-9. **Question 5**: 
+9. **Question 5**: How many files match the improved query? You can use the "count" button to help yourself.
 
 ## **Exercise #1.4**: Blobs and dynamic configurations
 
