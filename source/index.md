@@ -1,7 +1,5 @@
 # MWDB Training - Home
 
-## Workshop slides
-
 
 ```{toctree}
 ---
